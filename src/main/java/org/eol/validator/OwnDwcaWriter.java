@@ -3,24 +3,19 @@ package org.eol.validator;
  * this a copy of DwcaWriter
  * we need to change it to better solution*/
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.gbif.api.model.registry.Dataset;
 import org.gbif.dwc.terms.DcTerm;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.Term;
 import org.gbif.dwca.io.*;
 import org.gbif.dwca.record.Record;
 import org.gbif.io.TabWriter;
-import org.gbif.registry.metadata.EMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.*;
 
@@ -47,10 +42,6 @@ public class OwnDwcaWriter {
     private final Map<Term, List<Term>> terms = Maps.newHashMap();
     private final Map<String, List<Term>> terms_files = Maps.newHashMap();
     // key=rowType, value=default values per column
-    private final Map<Term, Map<Term, String>> defaultValues = Maps.newHashMap();
-    private final Map<Term, Map<Term, String>> multiValueDelimiter = Maps.newHashMap();
-    private Dataset eml;
-    private Map<String, Dataset> constituents = Maps.newHashMap();
     private Writer writer;
     private int i=0;
 
@@ -92,22 +83,6 @@ public class OwnDwcaWriter {
         addRowType(coreRowType);
     }
 
-    public static Map<Term, String> recordToMap(Record rec, ArchiveFile af) {
-        Map<Term, String> map = new HashMap<Term, String>();
-        for (Term t : af.getTerms()) {
-            map.put(t, rec.value(t));
-        }
-        return map;
-    }
-
-    public static String dataFileName(Term rowType) {
-        return rowType.simpleName().toLowerCase() + ".txt";
-    }
-
-    public static String dataFileName(String nameOfDataFile) {
-        return nameOfDataFile;
-    }
-
     private void addRowType(Term rowType) throws IOException {
         terms.put(rowType, new ArrayList<Term>());
 
@@ -122,18 +97,19 @@ public class OwnDwcaWriter {
         writers.put(rowType, wr);
     }
 
-    private void addRowType(Term rowType, String nameOfDataFile) throws IOException {
-        terms_files.put(nameOfDataFile, new ArrayList<Term>());
-
-        String dfn = dataFileName(nameOfDataFile);
-        dataFileNames.put(rowType, dfn);
-        File df = new File(dir, dfn);
-//        FileUtils.forceMkdir(df.getParentFile());
-        OutputStream out = new FileOutputStream(df, true);
-        writer = new BufferedWriter(new OutputStreamWriter(out, "UTF8"));
-        TabWriter wr = new TabWriter(out);
-        writers_files.put(nameOfDataFile, wr);
+    public static String dataFileName(Term rowType) {
+        return rowType.simpleName().toLowerCase() + ".txt";
     }
+
+
+    public static Map<Term, String> recordToMap(Record rec, ArchiveFile af) {
+        Map<Term, String> map = new HashMap<Term, String>();
+        for (Term t : af.getTerms()) {
+            map.put(t, rec.value(t));
+        }
+        return map;
+    }
+
 
     /**
      * A new core record is started and the last core and all extension records are written.
@@ -153,10 +129,6 @@ public class OwnDwcaWriter {
         if (coreRow != null) {
             writeRow(coreRow, coreRowType);
         }
-    }
-
-    public long getRecordsWritten() {
-        return recordNum;
     }
 
     private void writeRow(Map<Term, String> rowMap, Term rowType) throws IOException {
@@ -182,6 +154,49 @@ public class OwnDwcaWriter {
         }
     }
 
+
+    /**
+     * Add an extension record associated with the current core record.
+     *
+     * @param rowType
+     * @param row
+     * @throws IOException
+     */
+    public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
+//        i++;
+        // make sure we know the extension rowtype
+        if (!terms_files.containsKey(nameOfDataFile)) {
+            addRowType(rowType, nameOfDataFile);
+        }
+
+        // make sure we know all terms
+        List<Term> knownTerms = terms_files.get(nameOfDataFile);
+        final boolean isFirst = knownTerms.isEmpty();
+        for (Term term : termsSorted) {
+            if (!knownTerms.contains(term)) {
+                if (useHeaders && !isFirst){
+                    throw new IllegalStateException("You cannot add new terms after the first row when headers are enabled");
+                }
+                knownTerms.add(term);
+            }
+        }
+
+        // write extension record
+        writeRow(row, rowType, nameOfDataFile, fieldsTerminatedBy, linesTerminatedBy );
+    }
+
+    private void addRowType(Term rowType, String nameOfDataFile) throws IOException {
+        terms_files.put(nameOfDataFile, new ArrayList<Term>());
+
+        String dfn = nameOfDataFile;
+        dataFileNames.put(rowType, dfn);
+        File df = new File(dir, dfn);
+//        FileUtils.forceMkdir(df.getParentFile());
+        OutputStream out = new FileOutputStream(df, true);
+        writer = new BufferedWriter(new OutputStreamWriter(out, "UTF8"));
+        TabWriter wr = new TabWriter(out);
+        writers_files.put(nameOfDataFile, wr);
+    }
 
     private void writeRow(Map<Term, String> rowMap, Term rowType, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy) throws IOException {
         TabWriter writer = writers_files.get(nameOfDataFile);
@@ -233,201 +248,6 @@ public class OwnDwcaWriter {
         headersOut.add(rowType);
     }
 
-
-    /**
-     * Add a single value for the current core record.
-     * Calling this method requires that #newRecord() has been called at least once,
-     * otherwise an IllegalStateException is thrown.
-     * @param term
-     * @param value
-     */
-    public void addCoreColumn(Term term, String value) {
-        // ensure we do not overwrite the coreIdTerm if one is defined
-        if (coreIdTerm != null && coreIdTerm.equals(term)) {
-            throw new IllegalStateException("You cannot add a term that was specified as coreId term");
-        }
-
-        List<Term> coreTerms = terms.get(coreRowType);
-        if (!coreTerms.contains(term)) {
-            if (useHeaders && recordNum>1){
-                throw new IllegalStateException("You cannot add new terms after the first row when headers are enabled");
-            }
-            coreTerms.add(term);
-        }
-        try {
-            coreRow.put(term, value);
-        } catch (NullPointerException e) {
-            // no core record has been started yet
-            throw new IllegalStateException("No core record has been created yet. Call newRecord() at least once");
-        }
-    }
-
-    /**
-     * Convenience method to add an empty core column.
-     */
-    public void addCoreColumn(Term term) {
-        addCoreColumn(term, (String) null);
-    }
-
-    /**
-     * Null safe convenience method to write integers.
-     * See addCoreColumn(Term term, String value) for docs
-     */
-    public void addCoreColumn(Term term, @Nullable Integer value) {
-        addCoreColumn(term, value == null ? null : value.toString());
-    }
-
-    /**
-     * Null safe convenience method to write booleans.
-     * See addCoreColumn(Term term, String value) for docs
-     */
-    public void addCoreColumn(Term term, @Nullable Boolean value) {
-        addCoreColumn(term, value == null ? null : value.toString());
-    }
-
-    /**
-     * Null safe convenience method to write enumeration values.
-     * See addCoreColumn(Term term, String value) for docs
-     */
-    public void addCoreColumn(Term term, @Nullable Enum value) {
-        addCoreColumn(term, value == null ? null : value.name().toLowerCase().replaceAll("_", " "));
-    }
-
-    /**
-     * Null safe convenience method to write object values using the toString method.
-     * See addCoreColumn(Term term, String value) for docs
-     */
-    public void addCoreColumn(Term term, @Nullable Object value) {
-        addCoreColumn(term, value == null ? null : value.toString());
-    }
-
-    /**
-     * Add a default value to a term of the core.
-     *
-     * @param term
-     * @param defaultValue
-     */
-    public void addCoreDefaultValue(Term term, String defaultValue){
-        addDefaultValue(coreRowType, term, defaultValue);
-    }
-
-    /**
-     * Add a default value to a term of the provided rowType.
-     *
-     * @param rowType
-     * @param term
-     * @param defaultValue
-     */
-    public void addDefaultValue(Term rowType, Term term, String defaultValue){
-
-        if(!defaultValues.containsKey(rowType)){
-            defaultValues.put(rowType, new HashMap<Term, String>());
-        }
-        Map<Term,String> currentDefaultValues= defaultValues.get(rowType);
-        if(currentDefaultValues.containsKey(term)){
-            throw new IllegalStateException("The default value of term "+ term + " is already defined");
-        }
-        currentDefaultValues.put(term, defaultValue);
-    }
-
-    /**
-     * Declares the multi value delimiter for a term of the core rowType.
-     *
-     * @param term
-     * @param defaultValue
-     */
-    public void addCoreMultiValueDelimiter(Term term, String defaultValue){
-        addMultiValueDelimiter(coreRowType, term, defaultValue);
-    }
-
-    /**
-     * Declares the multi value delimiter for a term of the provided rowType.
-     */
-    public void addMultiValueDelimiter(Term rowType, Term term, String delimiter){
-
-        if(!multiValueDelimiter.containsKey(rowType)){
-            multiValueDelimiter.put(rowType, new HashMap<Term, String>());
-        }
-        Map<Term,String> delimiters= multiValueDelimiter.get(rowType);
-        if(delimiters.containsKey(term)){
-            throw new IllegalStateException("The delimiter of term "+ term + " is already defined");
-        }
-        delimiters.put(term, delimiter);
-    }
-
-    /**
-     * @return new map of all current data file names by their rowTypes.
-     */
-    public Map<Term, String> getDataFiles() {
-        return Maps.newHashMap(dataFileNames);
-    }
-
-    /**
-     * Add an extension record associated with the current core record.
-     *
-     * @param rowType
-     * @param row
-     * @throws IOException
-     */
-    public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
-//        i++;
-        // make sure we know the extension rowtype
-        if (!terms_files.containsKey(nameOfDataFile)) {
-            addRowType(rowType, nameOfDataFile);
-        }
-
-        // make sure we know all terms
-        List<Term> knownTerms = terms_files.get(nameOfDataFile);
-        final boolean isFirst = knownTerms.isEmpty();
-        for (Term term : termsSorted) {
-            if (!knownTerms.contains(term)) {
-                if (useHeaders && !isFirst){
-                    throw new IllegalStateException("You cannot add new terms after the first row when headers are enabled");
-                }
-                knownTerms.add(term);
-            }
-        }
-
-        // write extension record
-        writeRow(row, rowType, nameOfDataFile, fieldsTerminatedBy, linesTerminatedBy );
-    }
-
-    public void setEml(Dataset eml) {
-        this.eml = eml;
-    }
-
-    /**
-     * Adds a constituent dataset using the dataset key as the datasetID
-     */
-    public void addConstituent(Dataset eml) {
-        addConstituent(eml.getKey().toString(), eml);
-    }
-
-    /**
-     * Adds a constituent dataset.
-     * The eml file will be called as the datasetID which has to be unique.
-     */
-    public void addConstituent(String datasetID, Dataset eml) {
-        this.constituents.put(datasetID, eml);
-    }
-
-    /**
-     * @return the set of available rowTypes in this archive
-     */
-    public Set<Term> getRowTypes() {
-        return terms.keySet();
-    }
-
-    /**
-     * @return the list of term columns as used for the given row type
-     */
-    public List<Term> getTerms(Term rowType) {
-        if (terms.containsKey(rowType)) {
-            return terms.get(rowType);
-        }
-        return Lists.newArrayList();
-    }
-
     /* to write files without need to taps */
 
     public void write(String[] row, String fieldsTerminatedBy, String linesTerminatedBy) throws IOException {
@@ -445,7 +265,6 @@ public class OwnDwcaWriter {
                     rowString += fieldsTerminatedBy;
                 }
             }
-//            String rowString = StringUtils.join(row, fieldsTerminatedBy) + linesTerminatedBy;
             if (rowString != null) {
                 rowString = StringUtils.removeEnd(rowString, fieldsTerminatedBy);
                 rowString += linesTerminatedBy;
@@ -455,191 +274,4 @@ public class OwnDwcaWriter {
         }
     }
 
-//    private String tabRow(String[] columns, String fieldsTerminatedBy, String linesTerminatedBy) {
-//        boolean empty = true;
-//
-//        for(int i = 0; i < columns.length; ++i) {
-//            if (columns[i] != null) {
-//                empty = false;
-//                columns[i] = StringUtils.trimToNull(escapeChars.matcher(columns[i]).replaceAll(" "));
-//            }
-//        }
-//
-//        if (empty) {
-//            return null;
-//        } else {
-//            return StringUtils.join(columns, fieldsTerminatedBy) + linesTerminatedBy;
-//        }
-//    }
-
-
-
-    /**
-     * Writes meta.xml and eml.xml to the archive and closes tab writers.
-     *
-     */
-//    public void close() throws IOException {
-//        addEml();
-//        addConstituents();
-//        addMeta();
-//        // flush last record
-//        flushLastCoreRecord();
-//        // TODO: add missing columns in second iteration of data files
-//
-//        // close writers
-//        for (TabWriter w : writers.values()) {
-//            w.close();
-//        }
-//    }
-
-//    protected static void writeEml(Dataset d, File f) throws IOException {
-//        if (d != null) {
-//            try (Writer writer = new FileWriter(f)){
-//                EMLWriter.newInstance().writeTo(d, writer);
-//            }
-//        }
-//    }
-//
-//    private void addEml() throws IOException {
-//        writeEml(eml, new File(dir, "eml.xml"));
-//    }
-//
-//    private void addConstituents() throws IOException {
-//        if (!constituents.isEmpty()) {
-//            File ddir = new File(dir, Archive.CONSTITUENT_DIR);
-//            ddir.mkdirs();
-//            for (Map.Entry<String, Dataset> de : constituents.entrySet()) {
-//                writeEml(de.getValue(), new File(ddir, de.getKey()+".xml"));
-//            }
-//        }
-//    }
-
-//    private void addMeta() throws IOException {
-//        File metaFile = new File(dir, Archive.META_FN);
-//
-//        Archive arch = new Archive();
-//        if (eml != null) {
-//            arch.setMetadataLocation("eml.xml");
-//        }
-//        arch.setCore(buildArchiveFile(arch, coreRowType, coreIdTerm));
-//        for (Term rowType : this.terms.keySet()) {
-//            if (!coreRowType.equals(rowType)) {
-//                arch.addExtension(buildArchiveFile(arch, rowType, null));
-//            }
-//        }
-//        MetaDescriptorWriter.writeMetaFile(metaFile, arch);
-//    }
-
-    /**
-     * Build an ArchiveFile for core or extension(s).
-     *
-     * @param archive
-     * @param rowType
-     * @param idTerm the term of the id column, may be null
-     * @return
-     */
-//    private ArchiveFile buildArchiveFile(Archive archive, Term rowType, Term idTerm) {
-//        ArchiveFile af = ArchiveFile.buildTabFile();
-//        af.setArchive(archive);
-//        af.addLocation(dataFileNames.get(rowType));
-//
-//        af.setEncoding("utf-8");
-//        af.setIgnoreHeaderLines(useHeaders ? 1 : 0);
-//        af.setRowType(rowType);
-//
-//        ArchiveField id = new ArchiveField();
-//        id.setIndex(0);
-//        af.setId(id);
-//        // always use the index 0 for idTerm
-//        if (idTerm != null) {
-//            af.addField(buildArchiveField(0, idTerm));
-//        }
-//
-//        Map<Term,String> termDefaultValueMap = defaultValues.get(rowType);
-//        Map<Term,String> termMultiValueDelimiterMap = multiValueDelimiter.get(rowType);
-//        List<Term> rowTypeTerms = terms.get(rowType);
-//        int idx = 0;
-//        String defaultValue;
-//        String mvDelim;
-//        for (Term c : rowTypeTerms) {
-//            idx++;
-//            defaultValue = (termDefaultValueMap !=null ? termDefaultValueMap.get(c) : null);
-//            mvDelim = (termMultiValueDelimiterMap !=null ? termMultiValueDelimiterMap.get(c) : null);
-//            af.addField(buildArchiveField(idx, c, defaultValue, mvDelim));
-//        }
-//
-//        // check if default values are provided for this rowType
-//        if(termDefaultValueMap != null){
-//            for (Term t : termDefaultValueMap.keySet()) {
-//                if(!rowTypeTerms.contains(t)){
-//                    af.addField(buildArchiveFieldDefaultValue(t, termDefaultValueMap.get(t)));
-//                }
-//            }
-//        }
-//
-//        return af;
-//    }
-
-    /**
-     * Build an ArchiveField with a defaultValue and no index.
-     *
-     * @param term
-     * @param defaultValue
-     * @return
-     */
-//    private ArchiveField buildArchiveFieldDefaultValue(Term term, String defaultValue){
-//        Preconditions.checkNotNull(term, "Can't use a null term");
-//        Preconditions.checkNotNull(defaultValue, "Can't use a null defaultValue");
-//        new ArchiveField()
-//
-//        return new ArchiveField(term, defaultValue);
-//    }
-
-    /**
-     * Build an ArchiveField with no defaultValue.
-     *
-     * @param idx
-     * @param term
-     * @return
-     */
-//    private ArchiveField buildArchiveField(Integer idx, Term term){
-//        return buildArchiveField(idx, term, null);
-//    }
-
-    /**
-     *
-     * Build an ArchiveField from optional parameters.
-     *
-     * @param idx index or null
-     * @param term term or null
-     * @param defaultValue default value or null
-     * @return
-     */
-//    private ArchiveField buildArchiveField(Integer idx, Term term, String defaultValue){
-//        return buildArchiveField(idx, term, defaultValue, null);
-//    }
-
-    /**
-     *
-     * Build an ArchiveField from optional parameters.
-     *
-     * @param idx index or null
-     * @param term term or null
-     * @param defaultValue default value or null
-     * @param multiValueDelimiter value delimiter or null
-     */
-//    private ArchiveField buildArchiveField(Integer idx, Term term, String defaultValue, String multiValueDelimiter){
-//        Preconditions.checkNotNull(idx, "Can't use a null index");
-//        Preconditions.checkNotNull(term, "Can't use a null term");
-//
-//        ArchiveField field = new ArchiveField(idx, term);
-//
-//        if (StringUtils.isNotBlank(defaultValue)){
-//            field.setDefaultValue(defaultValue);
-//        }
-//        if (StringUtils.isNotEmpty(multiValueDelimiter)){
-//            field.setDelimitedBy(multiValueDelimiter);
-//        }
-//        return field;
-//    }
 }
