@@ -8,6 +8,7 @@ import org.eol.validator.OwnDwcaWriter;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.Term;
 import org.gbif.dwca.io.Archive;
+import org.gbif.dwca.io.ArchiveField;
 import org.gbif.dwca.io.ArchiveFile;
 import org.gbif.dwca.io.DwcaWriter;
 import org.gbif.dwca.record.Record;
@@ -16,6 +17,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 //import org.eol.handlers.LogHandler;
 
@@ -164,13 +166,18 @@ public class ValidationFunctions {
         Archive archive = archiveFile.getArchive();
         File backup_file = new File("/home/ba/eol_resources/"+archive.getLocation().getName()+"_valid");
         Term rowType = archiveFile.getRowType();
+        List<ArchiveField> fieldsSorted = archiveFile.getFieldsSorted();
+        ArrayList<Term> termsSorted = new ArrayList<Term>();
+        for (ArchiveField archiveField:fieldsSorted){
+            termsSorted.add(archiveField.getTerm());
+        }
 
         try {
             OwnDwcaWriter dwcaWriter = new OwnDwcaWriter(archive.getCore().getRowType() /*rowType*/, backup_file);
             for(Record record: records){
                 Map<Term, String> termStringMap = DwcaWriter.recordToMap(record, archiveFile);
                 dwcaWriter.newRecord(archive.getCore().getId().toString());
-                dwcaWriter.addExtensionRecord(rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy() );
+                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy() );
             }
             return true;
         } catch (IOException e) {

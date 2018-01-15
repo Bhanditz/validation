@@ -114,7 +114,9 @@ public class OwnDwcaWriter {
         String dfn = dataFileName(rowType);
         dataFileNames.put(rowType, dfn);
         File df = new File(dir, dfn);
-        FileUtils.forceMkdir(df.getParentFile());
+        if (!df.getParentFile().exists()){
+            FileUtils.forceMkdir(df.getParentFile());
+        }
         OutputStream out = new FileOutputStream(df);
         TabWriter wr = new TabWriter(out);
         writers.put(rowType, wr);
@@ -126,7 +128,7 @@ public class OwnDwcaWriter {
         String dfn = dataFileName(nameOfDataFile);
         dataFileNames.put(rowType, dfn);
         File df = new File(dir, dfn);
-        FileUtils.forceMkdir(df.getParentFile());
+//        FileUtils.forceMkdir(df.getParentFile());
         OutputStream out = new FileOutputStream(df, true);
         writer = new BufferedWriter(new OutputStreamWriter(out, "UTF8"));
         TabWriter wr = new TabWriter(out);
@@ -367,7 +369,7 @@ public class OwnDwcaWriter {
      * @param row
      * @throws IOException
      */
-    public void addExtensionRecord(Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
+    public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
 //        i++;
         // make sure we know the extension rowtype
         if (!terms_files.containsKey(nameOfDataFile)) {
@@ -377,7 +379,7 @@ public class OwnDwcaWriter {
         // make sure we know all terms
         List<Term> knownTerms = terms_files.get(nameOfDataFile);
         final boolean isFirst = knownTerms.isEmpty();
-        for (Term term : row.keySet()) {
+        for (Term term : termsSorted) {
             if (!knownTerms.contains(term)) {
                 if (useHeaders && !isFirst){
                     throw new IllegalStateException("You cannot add new terms after the first row when headers are enabled");

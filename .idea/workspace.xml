@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f957741d-5efd-4ac4-98ac-258bb59df562" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/eol/validator/functions/ValidationFunctions.class" afterPath="$PROJECT_DIR$/target/classes/org/eol/validator/functions/ValidationFunctions.class" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,11 +24,12 @@
       <file leaf-file-name="ValidationFunctions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="172" column="165" lean-forward="false" selection-start-line="172" selection-start-column="165" selection-end-line="172" selection-end-column="165" />
+            <state relative-caret-position="354">
+              <caret line="179" column="59" lean-forward="false" selection-start-line="179" selection-start-column="59" selection-end-line="179" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1560#1568#0" expanded="true" />
+                <element signature="e#1620#1628#0" expanded="true" />
+                <element signature="e#6523#6529#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,8 +48,8 @@
       <file leaf-file-name="OwnDwcaWriter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="445" column="95" lean-forward="true" selection-start-line="445" selection-start-column="95" selection-end-line="445" selection-end-column="95" />
+            <state relative-caret-position="288">
+              <caret line="381" column="36" lean-forward="false" selection-start-line="381" selection-start-column="36" selection-end-line="381" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3985#3999#0" expanded="true" />
@@ -59,20 +57,20 @@
                 <element signature="e#4235#4236#0" expanded="true" />
                 <element signature="e#4299#4300#0" expanded="true" />
                 <element signature="e#4336#4337#0" expanded="true" />
-                <element signature="e#5920#5921#0" expanded="true" />
-                <element signature="e#5952#5953#0" expanded="true" />
-                <element signature="e#10177#10178#0" expanded="true" />
-                <element signature="e#10227#10228#0" expanded="true" />
-                <element signature="e#13329#13330#0" expanded="true" />
-                <element signature="e#13382#13383#0" expanded="true" />
-                <element signature="e#14561#14562#0" expanded="true" />
-                <element signature="e#14591#14592#0" expanded="true" />
-                <element signature="e#14727#14728#0" expanded="true" />
-                <element signature="e#14787#14788#0" expanded="true" />
-                <element signature="e#14979#14980#0" expanded="true" />
-                <element signature="e#15032#15033#0" expanded="true" />
-                <element signature="e#15147#15148#0" expanded="true" />
-                <element signature="e#15184#15185#0" expanded="true" />
+                <element signature="e#5979#5980#0" expanded="true" />
+                <element signature="e#6011#6012#0" expanded="true" />
+                <element signature="e#10236#10237#0" expanded="true" />
+                <element signature="e#10286#10287#0" expanded="true" />
+                <element signature="e#13388#13389#0" expanded="true" />
+                <element signature="e#13441#13442#0" expanded="true" />
+                <element signature="e#14648#14649#0" expanded="true" />
+                <element signature="e#14678#14679#0" expanded="true" />
+                <element signature="e#14814#14815#0" expanded="true" />
+                <element signature="e#14874#14875#0" expanded="true" />
+                <element signature="e#15066#15067#0" expanded="true" />
+                <element signature="e#15119#15120#0" expanded="true" />
+                <element signature="e#15234#15235#0" expanded="true" />
+                <element signature="e#15271#15272#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -169,13 +167,15 @@
       <find>writers</find>
       <find>addRowType</find>
       <find>dataFileNames</find>
-      <find>terms_files</find>
       <find>terms</find>
       <find>addRow</find>
       <find>addex</find>
       <find>addro</find>
-      <find>copyContentOfArchiveFileToDisk</find>
       <find>writeRow</find>
+      <find>addrow</find>
+      <find>write</find>
+      <find>terms_files</find>
+      <find>copyContentOfArchiveFileToDisk</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -498,7 +498,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -524,15 +524,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java</url>
-          <line>431</line>
-          <properties />
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="48" />
+      <option name="time" value="51" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -571,7 +563,8 @@
           <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1560#1568#0" expanded="true" />
+            <element signature="e#1620#1628#0" expanded="true" />
+            <element signature="e#6523#6529#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -605,7 +598,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1560#1568#0" expanded="true" />
+            <element signature="e#1620#1628#0" expanded="true" />
+            <element signature="e#6523#6529#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -891,17 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="172" column="165" lean-forward="false" selection-start-line="172" selection-start-column="165" selection-end-line="172" selection-end-column="165" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1560#1568#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -918,10 +901,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
-          <caret line="445" column="95" lean-forward="true" selection-start-line="445" selection-start-column="95" selection-end-line="445" selection-end-column="95" />
+          <caret line="179" column="59" lean-forward="false" selection-start-line="179" selection-start-column="59" selection-end-line="179" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1620#1628#0" expanded="true" />
+            <element signature="e#6523#6529#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="381" column="36" lean-forward="false" selection-start-line="381" selection-start-column="36" selection-end-line="381" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3985#3999#0" expanded="true" />
@@ -929,20 +924,20 @@
             <element signature="e#4235#4236#0" expanded="true" />
             <element signature="e#4299#4300#0" expanded="true" />
             <element signature="e#4336#4337#0" expanded="true" />
-            <element signature="e#5920#5921#0" expanded="true" />
-            <element signature="e#5952#5953#0" expanded="true" />
-            <element signature="e#10177#10178#0" expanded="true" />
-            <element signature="e#10227#10228#0" expanded="true" />
-            <element signature="e#13329#13330#0" expanded="true" />
-            <element signature="e#13382#13383#0" expanded="true" />
-            <element signature="e#14561#14562#0" expanded="true" />
-            <element signature="e#14591#14592#0" expanded="true" />
-            <element signature="e#14727#14728#0" expanded="true" />
-            <element signature="e#14787#14788#0" expanded="true" />
-            <element signature="e#14979#14980#0" expanded="true" />
-            <element signature="e#15032#15033#0" expanded="true" />
-            <element signature="e#15147#15148#0" expanded="true" />
-            <element signature="e#15184#15185#0" expanded="true" />
+            <element signature="e#5979#5980#0" expanded="true" />
+            <element signature="e#6011#6012#0" expanded="true" />
+            <element signature="e#10236#10237#0" expanded="true" />
+            <element signature="e#10286#10287#0" expanded="true" />
+            <element signature="e#13388#13389#0" expanded="true" />
+            <element signature="e#13441#13442#0" expanded="true" />
+            <element signature="e#14648#14649#0" expanded="true" />
+            <element signature="e#14678#14679#0" expanded="true" />
+            <element signature="e#14814#14815#0" expanded="true" />
+            <element signature="e#14874#14875#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15119#15120#0" expanded="true" />
+            <element signature="e#15234#15235#0" expanded="true" />
+            <element signature="e#15271#15272#0" expanded="true" />
           </folding>
         </state>
       </provider>
