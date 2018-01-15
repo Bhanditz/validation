@@ -1,7 +1,7 @@
 package org.eol.validator;
 /*
-* this a copy of DwcaWriter
-* we need to change it to better solution*/
+ * this a copy of DwcaWriter
+ * we need to change it to better solution*/
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
@@ -40,15 +40,19 @@ public class OwnDwcaWriter {
     private final Term coreRowType;
     private final Term coreIdTerm;
     private final Map<Term, TabWriter> writers = Maps.newHashMap();
+    private final Map<String, TabWriter> writers_files = Maps.newHashMap();
     private final Set<Term> headersOut = Sets.newHashSet();
     private final Map<Term, String> dataFileNames = Maps.newHashMap();
     // key=rowType, value=columns
     private final Map<Term, List<Term>> terms = Maps.newHashMap();
+    private final Map<String, List<Term>> terms_files = Maps.newHashMap();
     // key=rowType, value=default values per column
     private final Map<Term, Map<Term, String>> defaultValues = Maps.newHashMap();
     private final Map<Term, Map<Term, String>> multiValueDelimiter = Maps.newHashMap();
     private Dataset eml;
     private Map<String, Dataset> constituents = Maps.newHashMap();
+    private Writer writer;
+    private int i=0;
 
     /**
      * Creates a new writer without header rows.
@@ -117,15 +121,16 @@ public class OwnDwcaWriter {
     }
 
     private void addRowType(Term rowType, String nameOfDataFile) throws IOException {
-        terms.put(rowType, new ArrayList<Term>());
+        terms_files.put(nameOfDataFile, new ArrayList<Term>());
 
         String dfn = dataFileName(nameOfDataFile);
         dataFileNames.put(rowType, dfn);
         File df = new File(dir, dfn);
         FileUtils.forceMkdir(df.getParentFile());
-        OutputStream out = new FileOutputStream(df);
+        OutputStream out = new FileOutputStream(df, true);
+        writer = new BufferedWriter(new OutputStreamWriter(out, "UTF8"));
         TabWriter wr = new TabWriter(out);
-        writers.put(rowType, wr);
+        writers_files.put(nameOfDataFile, wr);
     }
 
     /**
@@ -172,6 +177,30 @@ public class OwnDwcaWriter {
                 row[column] = conceptTermStringEntry.getValue();
             }
             writer.write(row);
+        }
+    }
+
+
+    private void writeRow(Map<Term, String> rowMap, Term rowType, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy) throws IOException {
+        TabWriter writer = writers_files.get(nameOfDataFile);
+        List<Term> columns = terms_files.get(nameOfDataFile);
+        if (useHeaders && !headersOut.contains(rowType)){
+            // write header row
+            writeHeader(writer, rowType, columns);
+        }
+
+        // make sure coreId is not null for extensions
+        if (coreRowType != rowType && coreId == null){
+            log.warn("Adding an {} extension record to a core without an Id! Skip this record", rowType);
+
+        } else {
+            String[] row = new String[columns.size()];
+//            row[0] = coreId;
+            for (Map.Entry<Term, String> conceptTermStringEntry : rowMap.entrySet()) {
+                int column = columns.indexOf(conceptTermStringEntry.getKey());
+                row[column] = conceptTermStringEntry.getValue();
+            }
+            write(row, fieldsTerminatedBy, linesTerminatedBy);
         }
     }
 
@@ -338,14 +367,15 @@ public class OwnDwcaWriter {
      * @param row
      * @throws IOException
      */
-    public void addExtensionRecord(Term rowType, Map<Term, String> row, String nameOfDataFile) throws IOException {
+    public void addExtensionRecord(Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
+//        i++;
         // make sure we know the extension rowtype
-        if (!terms.containsKey(rowType)) {
+        if (!terms_files.containsKey(nameOfDataFile)) {
             addRowType(rowType, nameOfDataFile);
         }
 
         // make sure we know all terms
-        List<Term> knownTerms = terms.get(rowType);
+        List<Term> knownTerms = terms_files.get(nameOfDataFile);
         final boolean isFirst = knownTerms.isEmpty();
         for (Term term : row.keySet()) {
             if (!knownTerms.contains(term)) {
@@ -357,7 +387,7 @@ public class OwnDwcaWriter {
         }
 
         // write extension record
-        writeRow(row, rowType);
+        writeRow(row, rowType, nameOfDataFile, fieldsTerminatedBy, linesTerminatedBy );
     }
 
     public void setEml(Dataset eml) {
@@ -395,6 +425,52 @@ public class OwnDwcaWriter {
         }
         return Lists.newArrayList();
     }
+
+    /* to write files without need to taps */
+
+    public void write(String[] row, String fieldsTerminatedBy, String linesTerminatedBy) throws IOException {
+        if (row != null && row.length != 0) {
+            String rowString = "";
+            for (int i=0; i<row.length;i++){
+                if (row[i] != null) {
+                    if (row[i].contains(fieldsTerminatedBy) || row[i].contains(linesTerminatedBy)) {
+                        rowString += "\"" + row[i] + "\"" + fieldsTerminatedBy;
+                    } else {
+                        rowString += row[i] + fieldsTerminatedBy;
+                    }
+                }
+                else{
+                    rowString += fieldsTerminatedBy;
+                }
+            }
+//            String rowString = StringUtils.join(row, fieldsTerminatedBy) + linesTerminatedBy;
+            if (rowString != null) {
+                rowString = StringUtils.removeEnd(rowString, fieldsTerminatedBy);
+                rowString += linesTerminatedBy;
+                writer.write(rowString);
+            }
+
+        }
+    }
+
+//    private String tabRow(String[] columns, String fieldsTerminatedBy, String linesTerminatedBy) {
+//        boolean empty = true;
+//
+//        for(int i = 0; i < columns.length; ++i) {
+//            if (columns[i] != null) {
+//                empty = false;
+//                columns[i] = StringUtils.trimToNull(escapeChars.matcher(columns[i]).replaceAll(" "));
+//            }
+//        }
+//
+//        if (empty) {
+//            return null;
+//        } else {
+//            return StringUtils.join(columns, fieldsTerminatedBy) + linesTerminatedBy;
+//        }
+//    }
+
+
 
     /**
      * Writes meta.xml and eml.xml to the archive and closes tab writers.

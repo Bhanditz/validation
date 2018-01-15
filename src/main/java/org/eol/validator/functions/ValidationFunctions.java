@@ -170,11 +170,14 @@ public class ValidationFunctions {
             for(Record record: records){
                 Map<Term, String> termStringMap = DwcaWriter.recordToMap(record, archiveFile);
                 dwcaWriter.newRecord(archive.getCore().getId().toString());
-                dwcaWriter.addExtensionRecord(rowType, termStringMap, archiveFile.getTitle());
+                dwcaWriter.addExtensionRecord(rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy() );
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        System.out.println("debug");
+
 //        FileOutputStream fop = null;
 //        try {
 //            if (!backup_file.exists()) {
