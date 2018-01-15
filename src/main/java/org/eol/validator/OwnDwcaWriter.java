@@ -162,11 +162,12 @@ public class OwnDwcaWriter {
      * @param row
      * @throws IOException
      */
-    public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row, String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy ) throws IOException {
+    public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row,
+                                   String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy, String encoding ) throws IOException {
 //        i++;
         // make sure we know the extension rowtype
         if (!terms_files.containsKey(nameOfDataFile)) {
-            addRowType(rowType, nameOfDataFile);
+            addRowType(rowType, nameOfDataFile, encoding);
         }
 
         // make sure we know all terms
@@ -185,7 +186,7 @@ public class OwnDwcaWriter {
         writeRow(row, rowType, nameOfDataFile, fieldsTerminatedBy, linesTerminatedBy );
     }
 
-    private void addRowType(Term rowType, String nameOfDataFile) throws IOException {
+    private void addRowType(Term rowType, String nameOfDataFile, String encoding) throws IOException {
         terms_files.put(nameOfDataFile, new ArrayList<Term>());
 
         String dfn = nameOfDataFile;
@@ -193,7 +194,7 @@ public class OwnDwcaWriter {
         File df = new File(dir, dfn);
 //        FileUtils.forceMkdir(df.getParentFile());
         OutputStream out = new FileOutputStream(df, true);
-        writer = new BufferedWriter(new OutputStreamWriter(out, "UTF8"));
+        writer = new BufferedWriter(new OutputStreamWriter(out, encoding));
         TabWriter wr = new TabWriter(out);
         writers_files.put(nameOfDataFile, wr);
     }
@@ -211,10 +212,10 @@ public class OwnDwcaWriter {
             log.warn("Adding an {} extension record to a core without an Id! Skip this record", rowType);
 
         } else {
-            String[] row = new String[columns.size()];
-//            row[0] = coreId;
+            String[] row = new String[columns.size()+1];
+            row[0] = coreId;
             for (Map.Entry<Term, String> conceptTermStringEntry : rowMap.entrySet()) {
-                int column = columns.indexOf(conceptTermStringEntry.getKey());
+                int column = 1+ columns.indexOf(conceptTermStringEntry.getKey());
                 row[column] = conceptTermStringEntry.getValue();
             }
             write(row, fieldsTerminatedBy, linesTerminatedBy);

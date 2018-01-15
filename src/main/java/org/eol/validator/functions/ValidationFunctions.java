@@ -176,8 +176,8 @@ public class ValidationFunctions {
             OwnDwcaWriter dwcaWriter = new OwnDwcaWriter(archive.getCore().getRowType() /*rowType*/, backup_file);
             for(Record record: records){
                 Map<Term, String> termStringMap = dwcaWriter.recordToMap(record, archiveFile);
-                dwcaWriter.newRecord(archive.getCore().getId().toString());
-                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy() );
+                dwcaWriter.newRecord(record.id());
+                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy(), archiveFile.getEncoding());
             }
             return true;
         } catch (IOException e) {
