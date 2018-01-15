@@ -43,7 +43,7 @@ public class OwnDwcaWriter {
     private final Map<String, List<Term>> terms_files = Maps.newHashMap();
     // key=rowType, value=default values per column
     private Writer writer;
-    private int i=0;
+    private int it=0;
 
     /**
      * Creates a new writer without header rows.
@@ -164,7 +164,7 @@ public class OwnDwcaWriter {
      */
     public void addExtensionRecord(ArrayList<Term> termsSorted, Term rowType, Map<Term, String> row,
                                    String nameOfDataFile, String fieldsTerminatedBy, String linesTerminatedBy, String encoding ) throws IOException {
-//        i++;
+        it++;
         // make sure we know the extension rowtype
         if (!terms_files.containsKey(nameOfDataFile)) {
             addRowType(rowType, nameOfDataFile, encoding);
@@ -270,6 +270,7 @@ public class OwnDwcaWriter {
                 rowString = StringUtils.removeEnd(rowString, fieldsTerminatedBy);
                 rowString += linesTerminatedBy;
                 writer.write(rowString);
+                writer.flush();
             }
 
         }

@@ -177,7 +177,8 @@ public class ValidationFunctions {
             for(Record record: records){
                 Map<Term, String> termStringMap = dwcaWriter.recordToMap(record, archiveFile);
                 dwcaWriter.newRecord(record.id());
-                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(), archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy(), archiveFile.getEncoding());
+                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(),
+                        archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy(), archiveFile.getEncoding());
             }
             return true;
         } catch (IOException e) {
