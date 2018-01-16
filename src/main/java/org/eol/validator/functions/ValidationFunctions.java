@@ -32,7 +32,7 @@ public class ValidationFunctions {
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
     public static ArchiveFileState checkArchiveFileHasField_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
-
+        System.out.println(fieldURI);
         Term fieldTerm = null;
         try {
             fieldTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);

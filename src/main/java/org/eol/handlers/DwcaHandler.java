@@ -57,13 +57,11 @@ public class DwcaHandler {
         Set<Term> afTerms = archiveFile.getTerms();
         Term term = null;
         for (Term t : afTerms) {
-            System.out.println(t.qualifiedName()+" -- ");
             if (t.qualifiedName().equalsIgnoreCase(fieldURI)) {
                 term = t;
                 break;
             }
         }
-        System.out.println();
         if (term == null) {
             throw new Exception("Archive file with row type " + archiveFile.getRowType().qualifiedName() + " , has no field with the URI " + fieldURI);
         }
