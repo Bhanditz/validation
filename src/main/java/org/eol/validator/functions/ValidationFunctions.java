@@ -163,6 +163,7 @@ public class ValidationFunctions {
 
 
     private static boolean copyContentOfArchiveFileToDisk(ArrayList<Record> records, ArchiveFile archiveFile){
+        System.out.println("debug " + archiveFile.getTitle());
         Archive archive = archiveFile.getArchive();
         File backup_file = new File("/home/ba/eol_resources/"+archive.getLocation().getName()+"_valid");
         Term rowType = archiveFile.getRowType();

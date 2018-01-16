@@ -26,22 +26,23 @@ public class DwcaHandler {
 
 //    private static Logger logger = LogHandler.getLogger(DwcaHandler.class.getName());
 
-    public static ArchiveFile getArchiveFile(Archive dwcArchive, String rowTypeURI) throws Exception {
+    public static ArrayList<ArchiveFile> getArchiveFile(Archive dwcArchive, String rowTypeURI) throws Exception {
+        ArrayList<ArchiveFile> archiveFiles = new ArrayList<ArchiveFile>();
         Set<ArchiveFile> extensions = dwcArchive.getExtensions();
-        ArchiveFile archiveFile = null;
+//        ArchiveFile archiveFile = null;
         for (ArchiveFile af : extensions) {
             if (af.getRowType().qualifiedName().equalsIgnoreCase(rowTypeURI)) {
-                archiveFile = af;
-                break;
+                archiveFiles.add(af);
+//                archiveFile = af;
             }
         }
-        if (archiveFile == null) {
+        if (archiveFiles.isEmpty()) {
             if (dwcArchive.getCore().getRowType().qualifiedName().equalsIgnoreCase(rowTypeURI))
-                archiveFile = dwcArchive.getCore();
+                archiveFiles.add(dwcArchive.getCore());
             else
                 throw new Exception("Archive file with row type " + rowTypeURI + " not found");
         }
-        return archiveFile;
+        return archiveFiles;
     }
 
     /**
@@ -56,11 +57,13 @@ public class DwcaHandler {
         Set<Term> afTerms = archiveFile.getTerms();
         Term term = null;
         for (Term t : afTerms) {
+            System.out.println(t.qualifiedName()+" -- ");
             if (t.qualifiedName().equalsIgnoreCase(fieldURI)) {
                 term = t;
                 break;
             }
         }
+        System.out.println();
         if (term == null) {
             throw new Exception("Archive file with row type " + archiveFile.getRowType().qualifiedName() + " , has no field with the URI " + fieldURI);
         }

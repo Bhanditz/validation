@@ -22,14 +22,14 @@
             <!--<FailureMessage>Media must have identifiers</FailureMessage>-->
         <!--</FieldValidationRule>-->
 
-        <!--<FieldValidationRule>-->
-            <!--<FieldUri>http://rs.tdwg.org/dwc/terms/taxonID</FieldUri>-->
-            <!--<ValidationFunction>-->
-                <!--org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator-->
-            <!--</ValidationFunction>-->
-            <!--<FailureType>error</FailureType>-->
-            <!--<FailureMessage>Media must have taxonIDs</FailureMessage>-->
-        <!--</FieldValidationRule>-->
+        <FieldValidationRule>
+            <FieldUri>http://rs.tdwg.org/dwc/terms/taxonID</FieldUri>
+            <ValidationFunction>
+                org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator
+            </ValidationFunction>
+            <FailureType>error</FailureType>
+            <FailureMessage>Media must have taxonIDs</FailureMessage>
+        </FieldValidationRule>
 
         <!--&lt;!&ndash;<FieldValidationRule>&ndash;&gt;-->
         <!--&lt;!&ndash;<FieldUri>http://purl.org/dc/terms/language</FieldUri>&ndash;&gt;-->
