@@ -5,6 +5,7 @@ import org.eol.validator.ArchiveFileState;
 import org.eol.validator.ValidationResult;
 import org.gbif.dwca.io.Archive;
 import org.gbif.dwca.io.ArchiveFile;
+import org.gbif.dwca.record.Record;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -67,19 +68,19 @@ public class RowValidationRule extends ValidationRule {
     }
 
     @Override
-    protected boolean callValidationFunction(Method method, Archive dwcArchive, ValidationResult validationResult) {
+    protected boolean callValidationFunction(Method method, ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records) {
         ArrayList<ArchiveFile> archiveFiles;
         try {
-            archiveFiles = DwcaHandler.getArchiveFile(dwcArchive, this.rowTypeURI);
+//            archiveFiles = DwcaHandler.getArchiveFile(dwcArchive, this.rowTypeURI);
         } catch (Exception e) {
 //            logger.info("validation function can not be applied because the specified rowtype : " + this.rowTypeURI + " is not found at the archive");
             return true;
         }
         try {
-            for (ArchiveFile archiveFile : archiveFiles) {
+//            for (ArchiveFile archiveFile : archiveFiles) {
                 ArchiveFileState result = (ArchiveFileState) method.invoke(null, archiveFile);
                 reportResult(this.rowTypeURI, result, validationResult);
-            }
+//            }
         } catch (IllegalArgumentException e) {
 //            logger.fatal("IllegalArgumentException while trying to dynamically call method method  : " + this.validationFunction);
 //            logger.fatal(e);

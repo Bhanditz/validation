@@ -31,7 +31,7 @@ public class ValidationFunctions {
      * @param archiveFile the input archive file
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
-    public static ArchiveFileState checkArchiveFileHasField_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkArchiveFileHasField_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         System.out.println(fieldURI);
         Term fieldTerm = null;
         try {
@@ -42,15 +42,15 @@ public class ValidationFunctions {
             return archiveFileState;
         }
         int failures = 0;
-        int totalLines = 0;
-        ArrayList<Record> recordsArrayList = new ArrayList<Record>();
+        int totalLines = records.size();
+//        ArrayList<Record> recordsArrayList = new ArrayList<Record>();
 
-        for (Record record : archiveFile) {
-            if (totalLines%chunkSize == 0 && totalLines !=0){
-                boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
-                if (writeCorrectly)
-                    recordsArrayList.clear();
-            }
+        for (Record record : records) {
+//            if (totalLines%chunkSize == 0 && totalLines !=0){
+//                boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
+//                if (writeCorrectly)
+//                    recordsArrayList.clear();
+//            }
             if (record.value(fieldTerm) == null || record.value(fieldTerm).length() <= 0) {
 
 //                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
@@ -58,19 +58,16 @@ public class ValidationFunctions {
                 //add the check
                 System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
                 countFailedLines(record);
+                records.remove(record);
                 failures++;
             }
-            else{
-                recordsArrayList.add(record);
-            }
 
-            totalLines++;
         }
-        if (!recordsArrayList.isEmpty()){
-            boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
-            if (writeCorrectly)
-                recordsArrayList.clear();
-        }
+//        if (!recordsArrayList.isEmpty()){
+//            boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
+//            if (writeCorrectly)
+//                recordsArrayList.clear();
+//        }
         return new ArchiveFileState(totalLines, failures);
     }
 
@@ -162,55 +159,6 @@ public class ValidationFunctions {
     }
 
 
-    private static boolean copyContentOfArchiveFileToDisk(ArrayList<Record> records, ArchiveFile archiveFile){
-        System.out.println("debug " + archiveFile.getTitle());
-        Archive archive = archiveFile.getArchive();
-        File backup_file = new File("/home/ba/eol_resources/"+archive.getLocation().getName()+"_valid");
-        Term rowType = archiveFile.getRowType();
-        List<ArchiveField> fieldsSorted = archiveFile.getFieldsSorted();
-        ArrayList<Term> termsSorted = new ArrayList<Term>();
-        for (ArchiveField archiveField:fieldsSorted){
-            termsSorted.add(archiveField.getTerm());
-        }
 
-        try {
-            OwnDwcaWriter dwcaWriter = new OwnDwcaWriter(archive.getCore().getRowType() /*rowType*/, backup_file);
-            for(Record record: records){
-                Map<Term, String> termStringMap = dwcaWriter.recordToMap(record, archiveFile);
-                dwcaWriter.newRecord(record.id());
-                dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(),
-                        archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy(), archiveFile.getEncoding());
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        System.out.println("debug");
-
-//        FileOutputStream fop = null;
-//        try {
-//            if (!backup_file.exists()) {
-//                backup_file.createNewFile();
-//            }
-//            fop = new FileOutputStream(backup_file, true);
-//            String content = "";
-//            for(Record record: records){
-//                Map<Term, String> termStringMap = DwcaWriter.recordToMap(record, archiveFile);
-//                content += record.toString();
-//                content += "\n";
-//            }
-//            byte [] fileContent = content.getBytes();
-//            fop.write(fileContent);
-//            fop.flush();
-//            fop.close();
-//            return true;
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        return false;
-    }
 
 }

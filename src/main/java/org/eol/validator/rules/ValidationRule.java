@@ -3,8 +3,11 @@ package org.eol.validator.rules;
 import org.eol.validator.ArchiveFileState;
 import org.eol.validator.ValidationResult;
 import org.gbif.dwca.io.Archive;
+import org.gbif.dwca.io.ArchiveFile;
+import org.gbif.dwca.record.Record;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 //import org.eol.handlers.LogHandler;
 
@@ -77,11 +80,11 @@ public abstract class ValidationRule {
      * type of the validation rule ) , then it report the result in the ValidationResult object
      *
      * @param method           the dynamically loaded method
-     * @param dwcArchive       the input darwin core archive
+     * @param archiveFile       the input archiveFile
      * @param validationResult the object that will hold the validation result
      * @return false in case of failing in calling the validation function
      */
-    protected abstract boolean callValidationFunction(Method method, Archive dwcArchive, ValidationResult validationResult);
+    protected abstract boolean callValidationFunction(Method method, ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records);
 
     /**
      * Dynamically load the validation function.
@@ -94,11 +97,11 @@ public abstract class ValidationRule {
      * Apply the validation rule on the darwincore archive file, and put the result in the
      * validation result
      *
-     * @param dwcArchive       the input Darwincore archive
+     * @param archiveFile       the input archiveFile
      * @param validationResult the object that should hold the validation result
      * @return false in case of failure in applying the rule
      */
-    public boolean validate(Archive dwcArchive, ValidationResult validationResult) {
+    public boolean validate(ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records) {
 //        logger = LogHandler.getLogger(ValidationRule.class.getName());
         Method method;
 
@@ -117,7 +120,7 @@ public abstract class ValidationRule {
 //            logger.fatal(e);
             return false;
         }
-        return callValidationFunction(method, dwcArchive, validationResult);
+        return callValidationFunction(method, archiveFile, validationResult, records);
     }
 
     /**
