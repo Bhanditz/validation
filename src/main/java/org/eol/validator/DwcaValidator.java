@@ -1,6 +1,7 @@
 package org.eol.validator;
 
 import com.sun.prism.impl.Disposer;
+import org.apache.commons.io.FileUtils;
 import org.eol.handlers.DwcaHandler;
 import org.eol.parser.utils.Constants;
 import org.eol.validator.rules.FieldValidationRule;
@@ -192,8 +193,7 @@ public class DwcaValidator {
      * @param dwcArchive the input Darwin Core Archive
      * @return false in case of failure in applying any of the validation rules
      */
-    private boolean applyFieldValidationRules(Archive dwcArchive, ValidationResult
-            validationResult) {
+    private boolean applyFieldValidationRules(Archive dwcArchive, ValidationResult validationResult) {
         List<String> rowTypeList = rulesLoader.getRowTypeList();
         if (rowTypeList.isEmpty()) {
             logger.warn("Empty rowType list. No rowTypes have validation rules");
@@ -254,13 +254,13 @@ public class DwcaValidator {
             ins = new FileInputStream(metaFile);
             byte fileContent[] = new byte[(int)metaFile.length()];
             ins.read(fileContent);
-            File file = new File("/home/ba/eol_resources/meta.xml");
-
+            File backupMetaFile = new File(path+"_valid/"+metaName);
+            FileUtils.forceMkdir(backupMetaFile.getParentFile());
             // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!backupMetaFile.exists()) {
+                backupMetaFile.createNewFile();
             }
-            FileOutputStream fop = new FileOutputStream(file);
+            FileOutputStream fop = new FileOutputStream(backupMetaFile);
             fop.write(fileContent);
             fop.flush();
             fop.close();

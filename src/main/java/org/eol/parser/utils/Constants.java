@@ -19,7 +19,8 @@ public class Constants {
     public static boolean copyContentOfArchiveFileToDisk(ArrayList<Record> records, ArchiveFile archiveFile){
         System.out.println("debug " + archiveFile.getTitle());
         Archive archive = archiveFile.getArchive();
-        File backup_file = new File("/home/ba/eol_resources/"+archive.getLocation().getName()+"_valid");
+        ;
+        File backup_folder = new File(archive.getLocation().getPath()+"_valid");
         Term rowType = archiveFile.getRowType();
         List<ArchiveField> fieldsSorted = archiveFile.getFieldsSorted();
         ArrayList<Term> termsSorted = new ArrayList<Term>();
@@ -28,7 +29,11 @@ public class Constants {
         }
 
         try {
-            OwnDwcaWriter dwcaWriter = new OwnDwcaWriter(archive.getCore().getRowType() /*rowType*/, backup_file);
+            OwnDwcaWriter dwcaWriter = new OwnDwcaWriter(archive.getCore().getRowType() /*rowType*/, backup_folder);
+            File backup_file = new File(backup_folder, archiveFile.getTitle());
+            if (!backup_file.exists()) {
+                backup_file.createNewFile();
+            }
             for(Record record: records){
                 Map<Term, String> termStringMap = dwcaWriter.recordToMap(record, archiveFile);
                 dwcaWriter.newRecord(record.id());
