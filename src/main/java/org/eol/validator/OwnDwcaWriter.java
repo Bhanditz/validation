@@ -80,7 +80,7 @@ public class OwnDwcaWriter {
         this.coreRowType = coreRowType;
         this.coreIdTerm = coreIdTerm;
         this.useHeaders = useHeaders;
-        addRowType(coreRowType);
+//        addRowType(coreRowType);
     }
 
     private void addRowType(Term rowType) throws IOException {
@@ -127,7 +127,7 @@ public class OwnDwcaWriter {
 
     private void flushLastCoreRecord() throws IOException {
         if (coreRow != null) {
-            writeRow(coreRow, coreRowType);
+//            writeRow(coreRow, coreRowType);
         }
     }
 
@@ -192,7 +192,7 @@ public class OwnDwcaWriter {
         String dfn = nameOfDataFile;
         dataFileNames.put(rowType, dfn);
         File df = new File(dir, dfn);
-//        FileUtils.forceMkdir(df.getParentFile());
+        FileUtils.forceMkdir(df.getParentFile());
         OutputStream out = new FileOutputStream(df, true);
         writer = new BufferedWriter(new OutputStreamWriter(out, encoding));
         TabWriter wr = new TabWriter(out);

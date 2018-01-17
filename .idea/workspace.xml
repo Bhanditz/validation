@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f957741d-5efd-4ac4-98ac-258bb59df562" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ValidationRules.xml" afterPath="$PROJECT_DIR$/target/classes/ValidationRules.xml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/eol/validator/DwcaValidator.class" afterPath="$PROJECT_DIR$/target/classes/org/eol/validator/DwcaValidator.class" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" afterPath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,8 +25,8 @@
       <file leaf-file-name="ValidationRules.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2529">
-              <caret line="148" column="94" lean-forward="false" selection-start-line="148" selection-start-column="65" selection-end-line="148" selection-end-column="94" />
+            <state relative-caret-position="394">
+              <caret line="379" column="0" lean-forward="false" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -44,7 +42,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FieldValidationRule.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FieldValidationRule.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="358">
@@ -57,21 +55,36 @@
       <file leaf-file-name="DwcaValidator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="268" column="9" lean-forward="false" selection-start-line="268" selection-start-column="9" selection-end-line="268" selection-end-column="9" />
+            <state relative-caret-position="171">
+              <caret line="208" column="78" lean-forward="false" selection-start-line="208" selection-start-column="78" selection-end-line="208" selection-end-column="78" />
               <folding>
-                <element signature="e#6990#6998#0" expanded="true" />
+                <element signature="e#7129#7137#0" expanded="true" />
+                <element signature="e#8580#8588#0" expanded="true" />
+                <element signature="e#9249#9257#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="OwnDwcaWriter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="28" column="21" lean-forward="true" selection-start-line="19" selection-start-column="8" selection-end-line="28" selection-end-column="21" />
+            <state relative-caret-position="182">
+              <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="22" column="80" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="80" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#932#938#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,8 +92,8 @@
       <file leaf-file-name="ValidationRulesLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRulesLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="177" column="66" lean-forward="false" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="66" />
+            <state relative-caret-position="335">
+              <caret line="230" column="23" lean-forward="false" selection-start-line="230" selection-start-column="12" selection-end-line="230" selection-end-column="23" />
               <folding>
                 <element signature="e#510#518#0" expanded="true" />
                 <element signature="e#7745#7746#0" expanded="true" />
@@ -103,8 +116,8 @@
       <file leaf-file-name="MetaFileValidationFunctions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/MetaFileValidationFunctions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="59" />
+            <state relative-caret-position="18">
+              <caret line="12" column="59" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -131,9 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>addro</find>
-      <find>addrow</find>
-      <find>write</find>
       <find>terms_files</find>
       <find>writeRow</find>
       <find>coreIdTerm</find>
@@ -145,7 +155,6 @@
       <find>getArchiveFile</find>
       <find>DwcaHandler.getArchiveFile</find>
       <find>Syste</find>
-      <find>rowTypeList</find>
       <find>rule.validate</find>
       <find>filterNotExistingRowTypes</find>
       <find>applyFieldValidationRules</find>
@@ -160,7 +169,11 @@
       <find>checkFieldExists</find>
       <find>validateRecords</find>
       <find>checkMediaHasURL_RowValidator</find>
+      <find>rowTypeList</find>
       <find>row</find>
+      <find>applyValidationRules</find>
+      <find>Tax</find>
+      <find>copyAllFiles</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -179,16 +192,16 @@
         <option value="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/CommonTerms.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/handlers/XMLHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/handlers/DwcaHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
       </list>
     </option>
   </component>
@@ -480,7 +493,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781458" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -513,7 +526,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="74" />
+      <option name="time" value="75" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -815,25 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="22" column="69" lean-forward="false" selection-start-line="22" selection-start-column="69" selection-end-line="22" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#932#938#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="194" column="51" lean-forward="true" selection-start-line="194" selection-start-column="10" selection-end-line="194" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/AgentValidationFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -858,36 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/MetaFileValidationFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRulesLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="177" column="66" lean-forward="false" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="66" />
-          <folding>
-            <element signature="e#510#518#0" expanded="true" />
-            <element signature="e#7745#7746#0" expanded="true" />
-            <element signature="e#7779#7780#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="268" column="9" lean-forward="false" selection-start-line="268" selection-start-column="9" selection-end-line="268" selection-end-column="9" />
-          <folding>
-            <element signature="e#6990#6998#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -904,10 +868,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="93" column="116" lean-forward="false" selection-start-line="93" selection-start-column="109" selection-end-line="93" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRulesLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="230" column="23" lean-forward="false" selection-start-line="230" selection-start-column="12" selection-end-line="230" selection-end-column="23" />
+          <folding>
+            <element signature="e#510#518#0" expanded="true" />
+            <element signature="e#7745#7746#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="22" column="80" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#932#938#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/MetaFileValidationFunctions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="12" column="59" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2529">
-          <caret line="148" column="94" lean-forward="false" selection-start-line="148" selection-start-column="65" selection-end-line="148" selection-end-column="94" />
+        <state relative-caret-position="394">
+          <caret line="379" column="0" lean-forward="false" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -920,10 +923,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="93" column="116" lean-forward="false" selection-start-line="93" selection-start-column="109" selection-end-line="93" selection-end-column="116" />
+        <state relative-caret-position="171">
+          <caret line="208" column="78" lean-forward="false" selection-start-line="208" selection-start-column="78" selection-end-line="208" selection-end-column="78" />
+          <folding>
+            <element signature="e#7129#7137#0" expanded="true" />
+            <element signature="e#8580#8588#0" expanded="true" />
+            <element signature="e#9249#9257#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
           <folding />
         </state>
       </provider>

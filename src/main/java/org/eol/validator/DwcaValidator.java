@@ -16,6 +16,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DwcaValidator {
 
@@ -114,6 +115,8 @@ public class DwcaValidator {
         logger.info("Out of  " + rules.size() + " MetaFileValidationRules");
         logger.info("Successfully applied " + success + " MetaFileValidationRules");
         logger.info("Failed in applying " + failures + " MetaFileValidationRules");
+        if(failures ==0)
+            copyMetaFile(dwca, "meta.xml");
 
         return failures == 0;
     }
@@ -140,7 +143,8 @@ public class DwcaValidator {
     private boolean applyValidationRules(Archive dwcArchive, ValidationResult validationResult) {
         List<String> rowTypeList = rulesLoader.getRowTypeList();
         if (rowTypeList.isEmpty()) {
-            //TODO copy all files
+            System.out.println("no rules");
+            copyAllFiles(dwcArchive);
             logger.warn("Empty rowType list. No rowTypes have validation rules");
             return true;
         }
@@ -187,6 +191,49 @@ public class DwcaValidator {
         return true;
     }
 
+    private void copyAllFiles(Archive dwcArchive) {
+        Set<ArchiveFile> extensions = dwcArchive.getExtensions();
+        ArchiveFile coreFile= dwcArchive.getCore();
+        ArrayList<Record> coreRecords = new ArrayList<Record>();
+        int lines = 0;
+        for(Record record : coreFile){
+            if(lines%chunkSize==0 && lines!=0){
+                if (Constants.copyContentOfArchiveFileToDisk(coreRecords, coreFile)) {
+                    coreRecords.clear();
+                }
+            }
+            lines++;
+            coreRecords.add(record);
+        }
+        if(!coreRecords.isEmpty()){
+            if (Constants.copyContentOfArchiveFileToDisk(coreRecords, coreFile)) {
+                coreRecords.clear();
+            }
+        }
+
+        for (ArchiveFile archiveFile : extensions) {
+            int totalLines = 0;
+            ArrayList<Record> records = new ArrayList<Record>();
+            for(Record record : archiveFile){
+                if(totalLines%chunkSize==0 && totalLines!=0){
+                    if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
+                        records.clear();
+                    }
+                }
+                totalLines++;
+                records.add(record);
+            }
+            if(!records.isEmpty()){
+                if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
+                    records.clear();
+                }
+            }
+
+        }
+
+
+    }
+
     /**
      * Apply the Row Validation Rules on the darwin core archive and put the results in the
      * ValidationResult object
@@ -202,6 +249,7 @@ public class DwcaValidator {
 
             if (rules.isEmpty()) {
                 logger.info("Row type " + rowType + " has no row validation rules");
+                return true;
             }
             logger.info("start applying " + rules.size() + " row Validations on archive file " + rowType);
             int localSuccess = 0;
@@ -251,7 +299,7 @@ public class DwcaValidator {
         if (rules.isEmpty()) {
             logger.info("Row type " + rowType + " has no field validation rules");
 //                continue;
-            //TODO call copy method
+            return true;
         }
         logger.info("start applying " + rules.size() + " field Validations on archive file " + rowType);
         int localSuccess = 0;
