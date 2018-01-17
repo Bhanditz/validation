@@ -115,5 +115,9 @@ public class FieldValidationRule extends ValidationRule {
         return true;
     }
 
+    protected boolean callValidationFunction(Method method, Archive dwcArchive, ValidationResult validationResult) {
+        return false;
+    }
+
 
 }

@@ -101,4 +101,8 @@ public class RowValidationRule extends ValidationRule {
         return true;
     }
 
+    protected boolean callValidationFunction(Method method, Archive dwcArchive, ValidationResult validationResult) {
+        return false;
+    }
+
 }

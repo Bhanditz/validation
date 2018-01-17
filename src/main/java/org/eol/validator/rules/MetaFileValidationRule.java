@@ -56,31 +56,31 @@ public class MetaFileValidationRule extends ValidationRule {
         return false;
     }
 
-//    @Override
-//    protected boolean callValidationFunction(Method method, Archive dwca, ValidationResult validationResult) {
-//        try {
-//            boolean result = (Boolean) method.invoke(null, dwca, this);
-//            if (!result)
-//                validationResult.addStructuralError(this.failureMessage);
-//        } catch (IllegalArgumentException e) {
-////            logger.fatal("IllegalArgumentException while trying to dynamically call method method  : " + this.validationFunction);
-////            logger.fatal(e);
-//            return false;
-//        } catch (IllegalAccessException e) {
-////            logger.fatal("IllegalAccessException while trying to dynamically call method method  : " + this.validationFunction);
-////            logger.fatal(e);
-//            return false;
-//        } catch (InvocationTargetException e) {
-////            logger.fatal("InvocationTargetException while trying to dynamically call method method  : " + this.validationFunction);
-////            logger.fatal(e);
-//            return false;
-//        } catch (Exception e) {
-////            logger.fatal("Exception while trying to dynamically call method method  : " + this.validationFunction);
-////            logger.fatal(e);
-//            return false;
-//        }
-//        return true;
-//    }
+    @Override
+    protected boolean callValidationFunction(Method method, Archive dwca, ValidationResult validationResult) {
+        try {
+            boolean result = (Boolean) method.invoke(null, dwca, this);
+            if (!result)
+                validationResult.addStructuralError(this.failureMessage);
+        } catch (IllegalArgumentException e) {
+//            logger.fatal("IllegalArgumentException while trying to dynamically call method method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        } catch (IllegalAccessException e) {
+//            logger.fatal("IllegalAccessException while trying to dynamically call method method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        } catch (InvocationTargetException e) {
+//            logger.fatal("InvocationTargetException while trying to dynamically call method method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        } catch (Exception e) {
+//            logger.fatal("Exception while trying to dynamically call method method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        }
+        return true;
+    }
 
     protected Method dynamicallyLoadMethod() throws ClassNotFoundException, NoSuchMethodException {
 //        logger.info("Apply the validation function [ " + this.toString() + " ]");

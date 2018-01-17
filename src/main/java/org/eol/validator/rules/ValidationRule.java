@@ -87,6 +87,16 @@ public abstract class ValidationRule {
     protected abstract boolean callValidationFunction(Method method, ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records);
 
     /**
+     * Invoke the validation function passing to it the appropriate arguments ( according to the
+     * type of the validation rule ) , then it report the result in the ValidationResult object
+     *
+     * @param method           the dynamically loaded method
+     * @param dwcArchive       the input darwin core archive
+     * @param validationResult the object that will hold the validation result
+     * @return false in case of failing in calling the validation function
+     */
+    protected abstract boolean callValidationFunction(Method method, Archive dwcArchive, ValidationResult validationResult);
+    /**
      * Dynamically load the validation function.
      *
      * @return Method object holding the validation function
@@ -121,6 +131,36 @@ public abstract class ValidationRule {
             return false;
         }
         return callValidationFunction(method, archiveFile, validationResult, records);
+    }
+
+    /**
+     * Apply the validation rule on the darwincore archive file, and put the result in the
+     * validation result
+     *
+     * @param dwcArchive       the input Darwincore archive
+     * @param validationResult the object that should hold the validation result
+     * @return false in case of failure in applying the rule
+     */
+    public boolean validate(Archive dwcArchive, ValidationResult validationResult) {
+//        logger = LogHandler.getLogger(ValidationRule.class.getName());
+        Method method;
+
+        try {
+            method = dynamicallyLoadMethod();
+        } catch (ClassNotFoundException e) {
+//            logger.fatal("ClassNotFoundException while trying to dynamically load class of method : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        } catch (SecurityException e) {
+//            logger.fatal("SecurityException while trying to dynamically load method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        } catch (NoSuchMethodException e) {
+//            logger.fatal("NoSuchMethodException while trying to dynamically load method  : " + this.validationFunction);
+//            logger.fatal(e);
+            return false;
+        }
+        return callValidationFunction(method, dwcArchive, validationResult);
     }
 
     /**

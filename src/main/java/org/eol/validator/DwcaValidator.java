@@ -56,27 +56,28 @@ public class DwcaValidator {
      * @return false in case of failure in applying any of the validation rules
      */
     public boolean validateArchive(Archive dwca, ValidationResult validationResult) {
-//        logger.info("Start applying the structuralValidationRules on archive " + dwca.getLocation
-//                () + " ...");
-//        if (!applyStructuralValidationRules(dwca, validationResult)) {
-//            logger.error("Failed in applying some Structural Validation rules");
-//            return false;
-//        }
-//        logger.info("Start applying the RowValidationRules on archive " + dwca.getLocation
-//                () + " ...");
-//        if (validationResult.getStructuralErrors().size() > 0) {
-//            logger.error("Dwca " + dwca.getLocation() + " does not pass some structural " +
-//                    "validation rules");
-//            return true;
-//        }
-//        logger.info("Start applying the FieldValidationRules on archive " + dwca.getLocation
-//                () + " ...");
+        logger.info("Start applying the structuralValidationRules on archive " + dwca.getLocation
+                () + " ...");
+        if (!applyStructuralValidationRules(dwca, validationResult)) {
+            logger.error("Failed in applying some Structural Validation rules");
+            return false;
+        }
+
+        if (validationResult.getStructuralErrors().size() > 0) {
+            logger.error("Dwca " + dwca.getLocation() + " does not pass some structural " +
+                    "validation rules");
+            return true;
+        }
+
         boolean validationRunWithoutProblems = true;
+//                logger.info("Start applying the RowValidationRules on archive " + dwca.getLocation
+//                () + " ...");
 //        if (!applyRowValidationRules(dwca, validationResult)) {
 //            logger.error("Failed in applying some Row Validation rules");
 //            validationRunWithoutProblems = false;
 //        }
-
+        logger.info("Start applying the FieldValidationRules on archive " + dwca.getLocation
+                () + " ...");
         if (!applyFieldValidationRules(dwca, validationResult)) {
             logger.error("Failed in applying some Field Validation rules");
             validationRunWithoutProblems = false;
@@ -90,31 +91,30 @@ public class DwcaValidator {
      *
      * @return false in case of failure in applying any of the validation rules
      */
-//    private boolean applyStructuralValidationRules(Archive dwca, ValidationResult
-//            validationResult) {
-//        List<MetaFileValidationRule> rules = rulesLoader.getMetaFileValidationRules();
-//        if (rules.isEmpty()) {
-//            // TODO copy meta file
-//            copyMetaFile(dwca, "meta.xml");
-//
-//            logger.info("No MetaFileValidationRules to apply");
-//            return true;
-//        }
-//
-//        int success = 0;
-//        int failures = 0;
-//        for (MetaFileValidationRule rule : rules) {
-//            if (rule.validate(dwca, validationResult))
-//                success++;
-//            else
-//                failures++;
-//        }
-//        logger.info("Out of  " + rules.size() + " MetaFileValidationRules");
-//        logger.info("Successfully applied " + success + " MetaFileValidationRules");
-//        logger.info("Failed in applying " + failures + " MetaFileValidationRules");
-//
-//        return failures == 0;
-//    }
+    private boolean applyStructuralValidationRules(Archive dwca, ValidationResult
+            validationResult) {
+        List<MetaFileValidationRule> rules = rulesLoader.getMetaFileValidationRules();
+        if (rules.isEmpty()) {
+            copyMetaFile(dwca, "meta.xml");
+
+            logger.info("No MetaFileValidationRules to apply");
+            return true;
+        }
+
+        int success = 0;
+        int failures = 0;
+        for (MetaFileValidationRule rule : rules) {
+            if (rule.validate(dwca, validationResult))
+                success++;
+            else
+                failures++;
+        }
+        logger.info("Out of  " + rules.size() + " MetaFileValidationRules");
+        logger.info("Successfully applied " + success + " MetaFileValidationRules");
+        logger.info("Failed in applying " + failures + " MetaFileValidationRules");
+
+        return failures == 0;
+    }
 
     private List<String> filterNotExistingRowTypes(Archive archive, List<String> rowTypeList) {
         logger.info("Prepare HashSet for the rowtypes of the archive");
