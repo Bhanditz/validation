@@ -77,18 +77,18 @@ public class FieldValidationRule extends ValidationRule {
         String methodName = this.validationFunction.substring(this.validationFunction.lastIndexOf(".") + 1);
 //        logger.info("Dynamically loading the class : " + className + " , method : " + methodName);
         Class<?> myClass = Class.forName(className);
-        return myClass.getMethod(methodName, ArchiveFile.class, String.class);
+        return myClass.getMethod(methodName, ArchiveFile.class, String.class, ArrayList.class);
     }
 
     @Override
     protected boolean callValidationFunction(Method method, ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records) {
-        ArrayList<ArchiveFile> archiveFiles;
-        try {
-//            archiveFiles = DwcaHandler.getArchiveFile(dwcArchive, this.rowTypeURI);
-        } catch (Exception e) {
-//            logger.fatal("The specified rowtype : " + this.rowTypeURI + " is not found at the archive");
-            return true;
-        }
+//        ArrayList<ArchiveFile> archiveFiles;
+//        try {
+////            archiveFiles = DwcaHandler.getArchiveFile(dwcArchive, this.rowTypeURI);
+//        } catch (Exception e) {
+////            logger.fatal("The specified rowtype : " + this.rowTypeURI + " is not found at the archive");
+//            return true;
+//        }
         try {
 //            for (ArchiveFile archiveFile : archiveFiles){
                 ArchiveFileState result = (ArchiveFileState) method.invoke(null, archiveFile, this.fieldURI, records);

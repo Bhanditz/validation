@@ -224,63 +224,19 @@ public class DwcaValidator {
                 ArrayList<Record> recordsToValid = new ArrayList<Record>();
                 for (Record record : archiveFile){
                     if (totalLines%chunkSize == 0 && totalLines !=0){
-                        //TODO loop on rules and flush array list by write it to files
-                        for (FieldValidationRule rule : rules) {
-                            if (!rule.validate(archiveFile, validationResult, recordsToValid)) {
-                                localFailures++;
-                                logger.error("RowType : " + rowType + " , Failed in applying the following " +
-                                        "rule : " + rule.toString());
-                            } else
-                                localSuccess++;
-                        }
-                        if (localFailures == 0)
-                            logger.info("Field validation rules on the rowType " + rowType + " all run " +
-                                    "successfully");
-                        else
-                            logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
-                                    "Failed in applying " + localFailures + " out of " + (localFailures +
-                                    localSuccess));
-                        success += localSuccess;
-                        failures += localFailures;
-                        if(Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)){
-                            recordsToValid.clear();
-                        }
+                        validateRecords (rules, archiveFile, validationResult,
+                                recordsToValid, rowType);
                     }
                     totalLines ++;
                     recordsToValid.add(record);
                 }
 
                 if (!recordsToValid.isEmpty()){
-                    boolean writeCorrectly = Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile);
-                    if (writeCorrectly)
-                        recordsToValid.clear();
+                    validateRecords (rules, archiveFile, validationResult,
+                            recordsToValid, rowType);
+
                 }
             }
-
-//            if (rules.isEmpty()) {
-//                logger.info("Row type " + rowType + " has no field field validation rules");
-//                continue;
-//            }
-//            logger.info("start applying "+rules.size()+" field Validations on archive file " + rowType );
-//            int localSuccess = 0;
-//            int localFailures = 0;
-//            for (FieldValidationRule rule : rules) {
-//                if (!rule.validate(dwcArchive, validationResult)) {
-//                    localFailures++;
-//                    logger.error("RowType : " + rowType + " , Failed in applying the following " +
-//                            "rule : " + rule.toString());
-//                } else
-//                    localSuccess++;
-//            }
-//            if (localFailures == 0)
-//                logger.info("Field validation rules on the rowType " + rowType + " all run " +
-//                        "successfully");
-//            else
-//                logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
-//                        "Failed in applying " + localFailures + " out of " + (localFailures +
-//                        localSuccess));
-//            success += localSuccess;
-//            failures += localFailures;
         }
         if (failures > 0) {
             logger.info("Field validation had  " + failures + " failed to be applied rules out of" +
@@ -315,6 +271,32 @@ public class DwcaValidator {
         }
 
 
+    }
+
+    private void validateRecords (List<FieldValidationRule> rules, ArchiveFile archiveFile, ValidationResult validationResult,
+                                  ArrayList<Record> recordsToValid, String rowType){
+        //TODO loop on rules and flush array list by write it to files
+        for (FieldValidationRule rule : rules) {
+            if (!rule.validate(archiveFile, validationResult, recordsToValid)) {
+//                localFailures++;
+                logger.error("RowType : " + rowType + " , Failed in applying the following " +
+                        "rule : " + rule.toString());
+            }
+//            } else
+//                localSuccess++;
+        }
+//        if (localFailures == 0)
+//            logger.info("Field validation rules on the rowType " + rowType + " all run " +
+//                    "successfully");
+//        else
+//            logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
+//                    "Failed in applying " + localFailures + " out of " + (localFailures +
+//                    localSuccess));
+//        success += localSuccess;
+//        failures += localFailures;
+        if(Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)){
+            recordsToValid.clear();
+        }
     }
 
 }

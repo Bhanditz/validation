@@ -37,20 +37,16 @@ public class ValidationFunctions {
         try {
             fieldTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
         } catch (Exception e) {
+            System.out.println("all lines violating");
             ArchiveFileState archiveFileState = new ArchiveFileState();
             archiveFileState.setAllLinesViolating(true);
+            records.clear();
             return archiveFileState;
         }
         int failures = 0;
         int totalLines = records.size();
-//        ArrayList<Record> recordsArrayList = new ArrayList<Record>();
 
         for (Record record : records) {
-//            if (totalLines%chunkSize == 0 && totalLines !=0){
-//                boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
-//                if (writeCorrectly)
-//                    recordsArrayList.clear();
-//            }
             if (record.value(fieldTerm) == null || record.value(fieldTerm).length() <= 0) {
 
 //                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
@@ -63,11 +59,6 @@ public class ValidationFunctions {
             }
 
         }
-//        if (!recordsArrayList.isEmpty()){
-//            boolean writeCorrectly = copyContentOfArchiveFileToDisk(recordsArrayList, archiveFile);
-//            if (writeCorrectly)
-//                recordsArrayList.clear();
-//        }
         return new ArchiveFileState(totalLines, failures);
     }
 
@@ -157,8 +148,5 @@ public class ValidationFunctions {
         }
         return true;
     }
-
-
-
 
 }

@@ -3,14 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f957741d-5efd-4ac4-98ac-258bb59df562" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" afterPath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/eol/validator/functions/ValidationFunctions.class" afterPath="$PROJECT_DIR$/target/classes/org/eol/validator/functions/ValidationFunctions.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/eol/validator/rules/FieldValidationRule.class" afterPath="$PROJECT_DIR$/target/classes/org/eol/validator/rules/FieldValidationRule.class" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,12 +26,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ValidationRules.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
+      <file leaf-file-name="FieldValidationRule.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="31" column="34" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="31" selection-end-column="34" />
+            <state relative-caret-position="156">
+              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DwcaValidator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="244" column="14" lean-forward="true" selection-start-line="244" selection-start-column="14" selection-end-line="244" selection-end-column="14" />
+              <folding>
+                <element signature="e#9953#9961#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,7 +51,7 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
+            <state relative-caret-position="0">
               <caret line="18" column="56" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -51,75 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testValidator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DwcaHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/handlers/DwcaHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="59" column="50" lean-forward="true" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
-              <folding>
-                <element signature="e#1006#1019#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FieldValidationRule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="83" column="146" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="146" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RowValidationRule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="80" column="92" lean-forward="false" selection-start-line="80" selection-start-column="92" selection-end-line="80" selection-end-column="92" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaFileValidationRule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DwcaValidator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding>
-                <element signature="e#9953#9961#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ValidationRule.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="82" column="53" lean-forward="false" selection-start-line="82" selection-start-column="53" selection-end-line="82" selection-end-column="53" />
+            <state relative-caret-position="48">
+              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -128,8 +74,8 @@
       <file leaf-file-name="ValidationFunctions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="69" column="11" lean-forward="true" selection-start-line="65" selection-start-column="10" selection-end-line="69" selection-end-column="11" />
+            <state relative-caret-position="2700">
+              <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -148,7 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>writers</find>
       <find>addRowType</find>
       <find>dataFileNames</find>
       <find>terms</find>
@@ -162,7 +107,6 @@
       <find>coreIdTerm</find>
       <find>recordNum</find>
       <find>package org\.eol\.validator\.functions\;\n\nimport org\.eol\.handlers\.DwcaHandler\;\nimport org\.eol\.parser\.utils\.CommonTerms\;\nimport org\.eol\.parser\.utils\.Constants\;\nimport org\.eol\.validator\.ArchiveFileState\;\nimport org\.eol\.validator\.OwnDwcaWriter\;\nimport org\.gbif\.dwc\.terms\.DwcTerm\;\nimport org\.gbif\.dwc\.terms\.Term\;\nimport org\.gbif\.dwca\.io\.Archive\;\nimport org\.gbif\.dwca\.io\.ArchiveField\;\nimport org\.gbif\.dwca\.io\.ArchiveFile\;\nimport org\.gbif\.dwca\.io\.DwcaWriter\;\nimport org\.gbif\.dwca\.record\.Record\;\n\nimport java\.io\.\*\;\nimport java\.util\.ArrayList\;\nimport java\.util\.List\;\nimport java\.util\.Map\;\nimport java\.util\.Set\;\n\n\/\/import org\.eol\.handlers\.LogHandler\;\n\npublic class ValidationFunctions \{\n    private static int chunkSize \= Constants\.ChunkSize\;\n\/\/    private static Logger logger \= LogHandler\.getLogger\(ValidationFunctions\.class\.getName\(\)\)\;\n\n    \/\*\*\n     \* Check whether ArchiveFile have field or not\n     \*\n     \* \@param archiveFile the input archive file\n     \* \@return ArchiveFileState  number of violating lines and total number of lines\n     \*\/\n    public static ArchiveFileState checkArchiveFileHasField_FieldValidator\(ArchiveFile archiveFile\, String fieldURI\) throws Exception \{\n\n        Term fieldTerm \= null\;\n        try \{\n            fieldTerm \= DwcaHandler\.getTermFromArchiveFile\(archiveFile\, fieldURI\)\;\n        \} catch \(Exception e\) \{\n            ArchiveFileState archiveFileState \= new ArchiveFileState\(\)\;\n            archiveFileState\.setAllLinesViolating\(true\)\;\n            return archiveFileState\;\n        \}\n        int failures \= 0\;\n        int totalLines \= 0\;\n        ArrayList\&lt;Record\&gt; recordsArrayList \= new ArrayList\&lt;Record\&gt;\(\)\;\n\n        for \(Record record \: archiveFile\) \{\n            if \(totalLines\%chunkSize \=\= 0 \&amp;\&amp; totalLines \!\=0\)\{\n                boolean writeCorrectly \= copyContentOfArchiveFileToDisk\(recordsArrayList\, archiveFile\)\;\n                if \(writeCorrectly\)\n                    recordsArrayList\.clear\(\)\;\n            \}\n            if \(record\.value\(fieldTerm\) \=\= null \|\| record\.value\(fieldTerm\)\.length\(\) \&lt;\= 0\) \{\n\n\/\/                logger\.debug\(\&quot;line violating a rule \\\&quot;Does not have the field \: \&quot; \+ fieldURI \+ \&quot; \\\&quot;\&quot;\)\;\n\n                \/\/add the check\n                System\.out\.println\(\&quot;HHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\&quot;\)\;\n                countFailedLines\(record\)\;\n                failures\+\+\;\n            \}\n            else\{\n                recordsArrayList\.add\(record\)\;\n            \}\n\n            totalLines\+\+\;\n        \}\n        if \(\!recordsArrayList\.isEmpty\(\)\)\{\n            boolean writeCorrectly \= copyContentOfArchiveFileToDisk\(recordsArrayList\, archiveFile\)\;\n            if \(writeCorrectly\)\n                recordsArrayList\.clear\(\)\;\n        \}\n        return new ArchiveFileState\(totalLines\, failures\)\;\n    \}\n\n    private static void countFailedLines\(Record record\)\{\n        System\.out\.println\(\&quot;COUNTTTTTTTTTTTTTTTTTTTT\&quot;\)\;\n        System\.out\.println\(record\.rowType\(\)\.qualifiedName\(\)\)\;\n        if\(record\.rowType\(\) \=\= CommonTerms\.mediaTerm\)\{\n            System\.out\.println\(\&quot;WE ARE HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEE\&quot;\)\;\n            MediaValidationFunctions\.failedMedia\.add\(record\.value\(CommonTerms\.identifierTerm\)\)\;\n        \}else if\(record\.rowType\(\) \=\= CommonTerms\.referenceTerm\)\{\n            ReferenceValidationFunctions\.failedReferences\.add\(record\.value\(CommonTerms\.referenceIDTerm\)\)\;\n        \}else if\(record\.rowType\(\) \=\= CommonTerms\.agentTerm\)\{\n            AgentValidationFunctions\.failedAgents\.add\(record\.value\(CommonTerms\.agentIDTerm\)\)\;\n        \}else\{\n            TaxonValidationFunctions\.failedTaxa\.add\(record\.value\(DwcTerm\.taxonID\)\)\;\n        \}\n    \}\n\n    \/\*\*\n     \* Check if the languages syntax using standardized ISO 639 language codes\n     \*\n     \* \@param archiveFile the input archive file\n     \* \@return ArchiveFileState  number of violating lines and total number of lines\n     \*\/\n    public static ArchiveFileState checkLanguageIsValid_FieldValidator\(ArchiveFile archiveFile\, String fieldURI\) throws Exception \{\n        Term languageTerm \= DwcaHandler\.getTermFromArchiveFile\(archiveFile\, fieldURI\)\;\n        int failures \= 0\;\n\n        int totalLines \= 0\;\n        for \(Record record \: archiveFile\) \{\n\n            if \(record\.value\(languageTerm\) \=\= null \|\| record\.value\(languageTerm\)\.length\(\) \&lt;\= 0 \|\| \!record\.value\(languageTerm\)\.matches\(\&quot;\^\[a\-z\]\{2\,3\}\(\-\[a\-z\]\{2\,5\}\)\?\$\&quot;\)\) \{\n\/\/                logger\.debug\(\&quot;line violating a rule \\\&quot;Does not have the field \: \&quot; \+ fieldURI \+ \&quot; \\\&quot;\&quot;\)\;\n\n\n                failures\+\+\;\n            \}\n            totalLines\+\+\;\n        \}\n        return new ArchiveFileState\(totalLines\, failures\)\;\n    \}\n\n    \/\*\*\n     \* Checks if the term name is following the \&quot;UTF\-8\&quot; encoding\n     \*\n     \* \@param archiveFile\n     \* \@param fieldURI\n     \* \@return\n     \* \@throws Exception\n     \*\/\n    public static ArchiveFileState checkTermOfFieldURIisUTF8_FieldValidator\(ArchiveFile archiveFile\, String\n            fieldURI\)\n            throws Exception \{\n        Term term \= null\;\n        try \{\n            term \= DwcaHandler\.getTermFromArchiveFile\(archiveFile\, fieldURI\)\;\n        \} catch \(Exception e\) \{\n            return new ArchiveFileState\(true\)\;\n        \}\n        int failures \= 0\;\n        int totalLines \= 0\;\n        for \(Record record \: archiveFile\) \{\n            if \(record\.value\(term\) \=\= null \|\| record\.value\(term\)\.length\(\) \&lt;\= 0 \|\|\n                    \!isUTF8\(record\.value\(term\)\)\) \{\n\/\/                logger\.debug\(\n\/\/                        \&quot;line \: \&quot; \+ record\.toString\(\) \+ \&quot; is violating a rule \\\&quot;\&quot; \+\n\/\/                                \&quot;Does not have a valid field \: \&quot; \+ fieldURI \+ \&quot; \= \&quot; \+ record\.value\(term\) \+ \&quot; \\\&quot;\&quot;\)\;\n                failures\+\+\;\n            \}\n            totalLines\+\+\;\n        \}\n        return new ArchiveFileState\(totalLines\, failures\)\;\n    \}\n\n    \/\*\*\n     \* Check if a string is valid UTF\-8 or not\n     \*\n     \* \@param string\n     \* \@return boolean\n     \*\/\n    public static boolean isUTF8\(String string\) \{\n        try \{\n            byte\[\] bytes \= string\.getBytes\(\&quot;UTF\-8\&quot;\)\;\n        \} catch \(UnsupportedEncodingException e\) \{\n            e\.printStackTrace\(\)\;\n            return false\;\n        \}\n        return true\;\n    \}\n\n\n    private static boolean copyContentOfArchiveFileToDisk\(ArrayList\&lt;Record\&gt; records\, ArchiveFile archiveFile\)\{\n        Archive archive \= archiveFile\.getArchive\(\)\;\n        File backup_file \= new File\(\&quot;\/home\/ba\/eol_resources\/\&quot;\+archive\.getLocation\(\)\.getName\(\)\+\&quot;_valid\&quot;\)\;\n        Term rowType \= archiveFile\.getRowType\(\)\;\n        List\&lt;ArchiveField\&gt; fieldsSorted \= archiveFile\.getFieldsSorted\(\)\;\n        ArrayList\&lt;Term\&gt; termsSorted \= new ArrayList\&lt;Term\&gt;\(\)\;\n        for \(ArchiveField archiveField\:fieldsSorted\)\{\n            termsSorted\.add\(archiveField\.getTerm\(\)\)\;\n        \}\n\n        try \{\n            OwnDwcaWriter dwcaWriter \= new OwnDwcaWriter\(archive\.getCore\(\)\.getRowType\(\) \/\*rowType\*\/\, backup_file\)\;\n            for\(Record record\: records\)\{\n                Map\&lt;Term\, String\&gt; termStringMap \= dwcaWriter\.recordToMap\(record\, archiveFile\)\;\n                dwcaWriter\.newRecord\(record\.id\(\)\)\;\n                dwcaWriter\.addExtensionRecord\(termsSorted\, rowType\, termStringMap\, archiveFile\.getTitle\(\)\, \n                        archiveFile\.getFieldsTerminatedBy\(\)\, archiveFile\.getLinesTerminatedBy\(\)\, archiveFile\.getEncoding\(\)\)\;\n            \}\n            return true\;\n        \} catch \(IOException e\) \{\n            e\.printStackTrace\(\)\;\n        \}\n\/\/        System\.out\.println\(\&quot;debug\&quot;\)\;\n\n\/\/        FileOutputStream fop \= null\;\n\/\/        try \{\n\/\/            if \(\!backup_file\.exists\(\)\) \{\n\/\/                backup_file\.createNewFile\(\)\;\n\/\/            \}\n\/\/            fop \= new FileOutputStream\(backup_file\, true\)\;\n\/\/            String content \= \&quot;\&quot;\;\n\/\/            for\(Record record\: records\)\{\n\/\/                Map\&lt;Term\, String\&gt; termStringMap \= DwcaWriter\.recordToMap\(record\, archiveFile\)\;\n\/\/                content \+\= record\.toString\(\)\;\n\/\/                content \+\= \&quot;\\n\&quot;\;\n\/\/            \}\n\/\/            byte \[\] fileContent \= content\.getBytes\(\)\;\n\/\/            fop\.write\(fileContent\)\;\n\/\/            fop\.flush\(\)\;\n\/\/            fop\.close\(\)\;\n\/\/            return true\;\n\/\/        \} catch \(FileNotFoundException e\) \{\n\/\/            e\.printStackTrace\(\)\;\n\/\/        \} catch \(IOException e\) \{\n\/\/            e\.printStackTrace\(\)\;\n\/\/        \}\n\n        return false\;\n    \}\n\n\}\n</find>
-      <find>copyContentOfArchiveFileToDisk</find>
       <find>i++</find>
       <find>debug</find>
       <find>getTermFromArchiveFile</find>
@@ -172,11 +116,13 @@
       <find>rowTypeList</find>
       <find>rule.validate</find>
       <find>filterNotExistingRowTypes</find>
-      <find>dynam</find>
-      <find>callValidationFunction</find>
       <find>applyFieldValidationRules</find>
       <find>applyStructuralValidationRules</find>
       <find>dwcArchive</find>
+      <find>System.out.println</find>
+      <find>callValidationFunction</find>
+      <find>copyContentOfArchiveFileToDisk</find>
+      <find>dynam</find>
       <find>applyRowValidationRules</find>
     </findStrings>
   </component>
@@ -199,13 +145,13 @@
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/handlers/DwcaHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java" />
         <option value="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/rules/MetaFileValidationRule.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
       </list>
     </option>
   </component>
@@ -494,6 +440,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1922" height="1054" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -503,10 +450,10 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22727273" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -515,7 +462,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38189846" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38189846" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -529,15 +476,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java</url>
-          <line>284</line>
-          <properties />
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="73" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -831,9 +770,9 @@
         <state relative-caret-position="441">
           <caret line="58" column="66" lean-forward="false" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="66" />
           <folding>
-            <element signature="e#510#518#0" expanded="true" />
-            <element signature="e#7745#7746#0" expanded="true" />
-            <element signature="e#7779#7780#0" expanded="true" />
+            <element signature="e#510#518#0" expanded="false" />
+            <element signature="e#7745#7746#0" expanded="false" />
+            <element signature="e#7779#7780#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -859,25 +798,9 @@
         <state relative-caret-position="185">
           <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
           <folding>
-            <element signature="e#889#890#0" expanded="true" />
-            <element signature="e#930#931#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="false" />
+            <element signature="e#930#931#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="82" column="53" lean-forward="false" selection-start-line="82" selection-start-column="53" selection-end-line="82" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="31" column="34" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="31" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -889,14 +812,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="18" column="56" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#946#952#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="360">
+          <caret line="80" column="92" lean-forward="false" selection-start-line="80" selection-start-column="92" selection-end-line="80" selection-end-column="92" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -910,12 +830,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="69" column="11" lean-forward="true" selection-start-line="65" selection-start-column="10" selection-end-line="69" selection-end-column="11" />
+        <state relative-caret-position="378">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="31" column="30" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="31" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="18" column="56" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#946#952#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -923,34 +868,28 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/FieldValidationRule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
-          <caret line="83" column="146" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="146" />
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/RowValidationRule.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="80" column="92" lean-forward="false" selection-start-line="80" selection-start-column="92" selection-end-line="80" selection-end-column="92" />
-          <folding />
+        <state relative-caret-position="2700">
+          <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="407">
+          <caret line="244" column="14" lean-forward="true" selection-start-line="244" selection-start-column="14" selection-end-line="244" selection-end-column="14" />
           <folding>
             <element signature="e#9953#9961#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
