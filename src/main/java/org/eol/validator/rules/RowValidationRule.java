@@ -64,21 +64,15 @@ public class RowValidationRule extends ValidationRule {
         String methodName = this.validationFunction.substring(this.validationFunction.lastIndexOf(".") + 1);
 //        logger.info("Dynamically loading the class : " + className + " , method : " + methodName);
         Class<?> myClass = Class.forName(className);
-        return myClass.getMethod(methodName, ArchiveFile.class);
+        return myClass.getMethod(methodName, ArchiveFile.class, ArrayList.class);
     }
 
     @Override
     protected boolean callValidationFunction(Method method, ArchiveFile archiveFile, ValidationResult validationResult, ArrayList<Record> records) {
-        ArrayList<ArchiveFile> archiveFiles;
-        try {
-//            archiveFiles = DwcaHandler.getArchiveFile(dwcArchive, this.rowTypeURI);
-        } catch (Exception e) {
-//            logger.info("validation function can not be applied because the specified rowtype : " + this.rowTypeURI + " is not found at the archive");
-            return true;
-        }
+
         try {
 //            for (ArchiveFile archiveFile : archiveFiles) {
-                ArchiveFileState result = (ArchiveFileState) method.invoke(null, archiveFile);
+                ArchiveFileState result = (ArchiveFileState) method.invoke(null, archiveFile, records);
                 reportResult(this.rowTypeURI, result, validationResult);
 //            }
         } catch (IllegalArgumentException e) {
