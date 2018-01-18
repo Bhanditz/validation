@@ -2,21 +2,21 @@ package org.eol.validator;
 
 import org.apache.commons.io.FileUtils;
 import org.eol.handlers.DwcaHandler;
+import org.eol.parser.utils.CommonTerms;
 import org.eol.parser.utils.Constants;
 import org.eol.validator.rules.FieldValidationRule;
 import org.eol.validator.rules.MetaFileValidationRule;
 import org.eol.validator.rules.RowValidationRule;
 import org.eol.validator.rules.ValidationRulesLoader;
+import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwca.io.Archive;
 import org.gbif.dwca.io.ArchiveFile;
 import org.gbif.dwca.record.Record;
 import org.slf4j.LoggerFactory;
+import sun.management.Agent;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DwcaValidator {
 
@@ -194,44 +194,53 @@ public class DwcaValidator {
     private void copyAllFiles(Archive dwcArchive) {
         Set<ArchiveFile> extensions = dwcArchive.getExtensions();
         ArchiveFile coreFile= dwcArchive.getCore();
-        ArrayList<Record> coreRecords = new ArrayList<Record>();
-        int lines = 0;
-        for(Record record : coreFile){
-            if(lines%chunkSize==0 && lines!=0){
-                if (Constants.copyContentOfArchiveFileToDisk(coreRecords, coreFile)) {
-                    coreRecords.clear();
-                }
-            }
-            lines++;
-            coreRecords.add(record);
-        }
-        if(!coreRecords.isEmpty()){
-            if (Constants.copyContentOfArchiveFileToDisk(coreRecords, coreFile)) {
-                coreRecords.clear();
-            }
-        }
+        copyArchiveFile(coreFile);
 
         for (ArchiveFile archiveFile : extensions) {
-            int totalLines = 0;
-            ArrayList<Record> records = new ArrayList<Record>();
-            for(Record record : archiveFile){
-                if(totalLines%chunkSize==0 && totalLines!=0){
-                    if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
-                        records.clear();
-                    }
-                }
-                totalLines++;
-                records.add(record);
-            }
-            if(!records.isEmpty()){
+            System.out.println(archiveFile.getTitle());
+            copyArchiveFile(archiveFile);
+
+        }
+
+        if (dwcArchive.getExtension(CommonTerms.referenceTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.referenceTerm))) {
+            System.out.println("copy references");
+            copyArchiveFile(dwcArchive.getExtension(CommonTerms.referenceTerm));
+        }
+
+        if (dwcArchive.getExtension(CommonTerms.agentTerm) != null /*&& !extensions.contains(dwcArchive.getExtension(CommonTerms.agentTerm))*/) {
+            System.out.println("copy agents");
+            copyArchiveFile(dwcArchive.getExtension(CommonTerms.agentTerm));
+        }
+
+        if (dwcArchive.getExtension(CommonTerms.associationTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.associationTerm))) {
+            System.out.println("copy associations");
+            copyArchiveFile(dwcArchive.getExtension(CommonTerms.associationTerm));
+        }
+
+        if (dwcArchive.getExtension(DwcTerm.MeasurementOrFact) != null && !extensions.contains(dwcArchive.getExtension(DwcTerm.MeasurementOrFact))) {
+            System.out.println("copy measurements");
+            copyArchiveFile(dwcArchive.getExtension(DwcTerm.MeasurementOrFact));
+        }
+    }
+
+    private void copyArchiveFile (ArchiveFile archiveFile){
+        System.out.println("copy "+archiveFile.getTitle());
+        int totalLines = 0;
+        ArrayList<Record> records = new ArrayList<Record>();
+        for(Record record : archiveFile){
+            if(totalLines%chunkSize==0 && totalLines!=0){
                 if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
                     records.clear();
                 }
             }
-
+            totalLines++;
+            records.add(record);
         }
-
-
+        if(!records.isEmpty()){
+            if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
+                records.clear();
+            }
+        }
     }
 
     /**
@@ -352,42 +361,5 @@ public class DwcaValidator {
 
     }
 
-
-    private void validateFields(List<FieldValidationRule> rules, ArchiveFile archiveFile, ValidationResult validationResult,
-                                 ArrayList<Record> recordsToValid, String rowType) {
-
-//        if (localFailures == 0)
-//            logger.info("Field validation rules on the rowType " + rowType + " all run " +
-//                    "successfully");
-//        else
-//            logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
-//                    "Failed in applying " + localFailures + " out of " + (localFailures +
-//                    localSuccess));
-//        success += localSuccess;
-//        failures += localFailures;
-
-    }
-    private void validateRows(List<RowValidationRule> rules, ArchiveFile archiveFile, ValidationResult validationResult,
-                                  ArrayList<Record> recordsToValid, String rowType) {
-//        for (RowValidationRule rule : rules) {
-//            if (!rule.validate(archiveFile, validationResult, recordsToValid)) {
-////                localFailures++;
-//                logger.error("RowType : " + rowType + " , Failed in applying the following " +
-//                        "rule : " + rule.toString());
-//            }
-////            } else
-////                localSuccess++;
-//        }
-//        if (localFailures == 0)
-//            logger.info("Field validation rules on the rowType " + rowType + " all run " +
-//                    "successfully");
-//        else
-//            logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
-//                    "Failed in applying " + localFailures + " out of " + (localFailures +
-//                    localSuccess));
-//        success += localSuccess;
-//        failures += localFailures;
-
-    }
 
 }

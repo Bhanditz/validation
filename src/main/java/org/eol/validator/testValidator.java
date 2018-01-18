@@ -20,7 +20,10 @@ public class testValidator {
 //        }
         try {
             DwcaValidator validator = new DwcaValidator("configs.properties");
-            String path = "/home/ba/eol_resources/4";
+            String path = "/home/ba/eol_resources/8";
+//            File myArchiveFile = new File(path);
+//            File extractToFolder = new File(FilenameUtils.removeExtension(path) + ".out");
+//            Archive dwcArchive = ArchiveFactory.openArchive(myArchiveFile, extractToFolder);
             Archive dwcArchive = ArchiveFactory.openArchive(new File(path));
 
             validator.validateArchive(dwcArchive.getLocation().getPath(), dwcArchive);

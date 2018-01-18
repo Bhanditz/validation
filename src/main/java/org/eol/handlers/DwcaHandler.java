@@ -6,6 +6,7 @@ import org.eol.validator.functions.AgentValidationFunctions;
 import org.eol.validator.functions.MediaValidationFunctions;
 import org.eol.validator.functions.ReferenceValidationFunctions;
 import org.eol.validator.functions.TaxonValidationFunctions;
+import org.gbif.api.model.registry.Dataset;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.terms.Term;
 import org.gbif.dwc.terms.TermFactory;
@@ -13,7 +14,9 @@ import org.gbif.dwca.io.Archive;
 import org.gbif.dwca.io.ArchiveFile;
 import org.gbif.dwca.record.Record;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,6 +31,7 @@ public class DwcaHandler {
 
     public static ArrayList<ArchiveFile> getArchiveFile(Archive dwcArchive, String rowTypeURI) throws Exception {
         ArrayList<ArchiveFile> archiveFiles = new ArrayList<ArchiveFile>();
+        Map<String,File> stringFileMap = dwcArchive.getConstituentMetadata();
         Set<ArchiveFile> extensions = dwcArchive.getExtensions();
 //        ArchiveFile archiveFile = null;
         for (ArchiveFile af : extensions) {
