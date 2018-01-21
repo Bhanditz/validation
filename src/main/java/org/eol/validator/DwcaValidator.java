@@ -73,18 +73,6 @@ public class DwcaValidator {
         if (!applyValidationRules(dwca, validationResult)) {
             validationRunWithoutProblems = false;
         }
-//        logger.info("Start applying the RowValidationRules on archive " + dwca.getLocation
-//                () + " ...");
-//        if (!applyRowValidationRules(dwca, validationResult)) {
-//            logger.error("Failed in applying some Row Validation rules");
-//            validationRunWithoutProblems = false;
-//        }
-//        logger.info("Start applying the FieldValidationRules on archive " + dwca.getLocation
-//                () + " ...");
-//        if (!applyFieldValidationRules(dwca, validationResult)) {
-//            logger.error("Failed in applying some Field Validation rules");
-//            validationRunWithoutProblems = false;
-//        }
         return validationRunWithoutProblems;
     }
 
@@ -115,7 +103,7 @@ public class DwcaValidator {
         logger.info("Out of  " + rules.size() + " MetaFileValidationRules");
         logger.info("Successfully applied " + success + " MetaFileValidationRules");
         logger.info("Failed in applying " + failures + " MetaFileValidationRules");
-        if(failures ==0)
+        if (failures == 0)
             copyMetaFile(dwca, "meta.xml");
 
         return failures == 0;
@@ -155,10 +143,19 @@ public class DwcaValidator {
         }
 
         rowTypeList = filterNotExistingRowTypes(dwcArchive, rowTypeList);
+        boolean rowSuccess = true, fieldSuccess = true;
+
         for (String rowType : rowTypeList) {
+
             List<RowValidationRule> rowValidationRules = rulesLoader.getValidationRulesOfRowType(rowType);
+            if (rowValidationRules.isEmpty()) {
+                logger.info("Row type " + rowType + " has no row validation rules");
+            }
 
             List<FieldValidationRule> fieldValidationRules = rulesLoader.getValidationRulesOfFieldType(rowType);
+            if (rowValidationRules.isEmpty()) {
+                logger.info("Row type " + rowType + " has no field validation rules");
+            }
 
             ArrayList<ArchiveFile> archiveFiles;
             try {
@@ -168,12 +165,15 @@ public class DwcaValidator {
                 return true;
             }
             for (ArchiveFile archiveFile : archiveFiles) {
-                int totalLines = 0;
+                int totalLines = 0, chunks = 0;
                 ArrayList<Record> recordsToValid = new ArrayList<Record>();
                 for (Record record : archiveFile) {
                     if (totalLines % chunkSize == 0 && totalLines != 0) {
-                        applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
-                        applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
+                        chunks++;
+                        logger.info("start applying " + rowValidationRules.size() + " row Validations on archive file " + rowType + "on " + chunks + "chunk");
+                        rowSuccess &= applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
+                        logger.info("start applying " + rowValidationRules.size() + " field Validations on archive file " + rowType + "on " + chunks + "chunk");
+                        fieldSuccess &= applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
                         if (Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)) {
                             recordsToValid.clear();
                         }
@@ -182,8 +182,11 @@ public class DwcaValidator {
                     recordsToValid.add(record);
                 }
                 if (!recordsToValid.isEmpty()) {
-                    applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
-                    applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
+                    chunks++;
+                    logger.info("start applying " + rowValidationRules.size() + " row Validations on archive file " + rowType + "on " + chunks + "chunk");
+                    rowSuccess &= applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
+                    logger.info("start applying " + rowValidationRules.size() + " field Validations on archive file " + rowType + "on " + chunks + "chunk");
+                    fieldSuccess &= applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
                     if (Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)) {
                         recordsToValid.clear();
                     }
@@ -193,12 +196,16 @@ public class DwcaValidator {
 
 
         }
-        return true;
+        if (!rowSuccess)
+            logger.error("Failed in applying some Row Validation rules");
+        if (!fieldSuccess)
+            logger.error("Failed in applying some Field Validation rules");
+        return rowSuccess && fieldSuccess;
     }
 
     private void copyAllFiles(Archive dwcArchive) {
         Set<ArchiveFile> extensions = dwcArchive.getExtensions();
-        ArchiveFile coreFile= dwcArchive.getCore();
+        ArchiveFile coreFile = dwcArchive.getCore();
         copyArchiveFile(coreFile);
 
         for (ArchiveFile archiveFile : extensions) {
@@ -228,12 +235,12 @@ public class DwcaValidator {
 //        }
     }
 
-    private void copyArchiveFile (ArchiveFile archiveFile){
-        System.out.println("copy "+archiveFile.getTitle());
+    private void copyArchiveFile(ArchiveFile archiveFile) {
+        System.out.println("copy " + archiveFile.getTitle());
         int totalLines = 0;
         ArrayList<Record> records = new ArrayList<Record>();
-        for(Record record : archiveFile){
-            if(totalLines%chunkSize==0 && totalLines!=0){
+        for (Record record : archiveFile) {
+            if (totalLines % chunkSize == 0 && totalLines != 0) {
                 if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
                     records.clear();
                 }
@@ -241,7 +248,7 @@ public class DwcaValidator {
             totalLines++;
             records.add(record);
         }
-        if(!records.isEmpty()){
+        if (!records.isEmpty()) {
             if (Constants.copyContentOfArchiveFileToDisk(records, archiveFile)) {
                 records.clear();
             }
@@ -258,42 +265,29 @@ public class DwcaValidator {
     private boolean applyRowValidationRules(ArchiveFile archiveFile, ValidationResult validationResult,
                                             String rowType, List<RowValidationRule> rules, ArrayList<Record> recordsToValid) {
 
-        int success = 0;
-        int failures = 0;
-
-            if (rules.isEmpty()) {
-                logger.info("Row type " + rowType + " has no row validation rules");
-                return true;
-            }
-            logger.info("start applying " + rules.size() + " row Validations on archive file " + rowType);
-            int localSuccess = 0;
-            int localFailures = 0;
+        if (rules.isEmpty()) {
+            return true;
+        }
+        int localSuccess = 0;
+        int localFailures = 0;
         for (RowValidationRule rule : rules) {
             if (!rule.validate(archiveFile, validationResult, recordsToValid)) {
-//                localFailures++;
+                localFailures++;
                 logger.error("RowType : " + rowType + " , Failed in applying the following " +
                         "rule : " + rule.toString());
-            }
-//            } else
-//                localSuccess++;
+            } else
+                localSuccess++;
         }
-//
-//            if (localFailures == 0)
-//                logger.info("Row validation rules on the rowType " + rowType + " all run " +
-//                        "successfully");
-//            else
-//                logger.info("Row validation rules on the rowType " + rowType + " had problems. " +
-//                        "Failed in applying " + localFailures + " out of " + (localFailures +
-//                        localSuccess));
-//            success += localSuccess;
-//            failures += localFailures;
-//        }
-        if (failures > 0) {
-            logger.info("Row validation had  " + failures + " failed to be applied rules out of "
-                    + (failures + success));
-            return false;
-        } else
-            return true;
+
+        if (localFailures == 0)
+            logger.info("Row validation rules on the rowType " + rowType + " all run " +
+                    "successfully");
+        else
+            logger.info("Row validation rules on the rowType " + rowType + " had problems. " +
+                    "Failed in applying " + localFailures + " out of " + (localFailures +
+                    localSuccess));
+
+        return localFailures == 0;
     }
 
     /**
@@ -306,37 +300,32 @@ public class DwcaValidator {
     private boolean applyFieldValidationRules(ArchiveFile archiveFile, ValidationResult validationResult,
                                               String rowType, List<FieldValidationRule> rules, ArrayList<Record> recordsToValid) {
 
-        //        logger.info("Start applying the FieldValidationRules on archive " + dwca.getLocation
-//                () + " ...");
-        int success = 0;
-        int failures = 0;
+
         if (rules.isEmpty()) {
-            logger.info("Row type " + rowType + " has no field validation rules");
-//                continue;
             return true;
         }
-        logger.info("start applying " + rules.size() + " field Validations on archive file " + rowType);
         int localSuccess = 0;
         int localFailures = 0;
 
 
         for (FieldValidationRule rule : rules) {
             if (!rule.validate(archiveFile, validationResult, recordsToValid)) {
-//                localFailures++;
+                localFailures++;
                 logger.error("RowType : " + rowType + " , Failed in applying the following " +
                         "rule : " + rule.toString());
-            }
-//            } else
-//                localSuccess++;
+            } else
+                localSuccess++;
         }
+        if (localFailures == 0)
+            logger.info("Field validation rules on the rowType " + rowType + " all run " +
+                    "successfully");
+        else
+            logger.info("Field validation rules on the rowType " + rowType + " had problems. " +
+                    "Failed in applying " + localFailures + " out of " + (localFailures +
+                    localSuccess));
 
 
-        if (failures > 0) {
-            logger.info("Field validation had  " + failures + " failed to be applied rules out of" +
-                    " " + (failures + success));
-            return false;
-        } else
-            return true;
+        return localFailures == 0;
     }
 
     public void copyMetaFile(Archive dwca, String metaName) {
