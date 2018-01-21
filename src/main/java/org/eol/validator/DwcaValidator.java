@@ -110,15 +110,22 @@ public class DwcaValidator {
     }
 
     private List<String> filterNotExistingRowTypes(Archive archive, List<String> rowTypeList) {
+        ArrayList<String> rowTypeSmall = new ArrayList<String>(rowTypeList);
+//        Collections.copy(rowTypeSmall, rowTypeList);
+        rowTypeSmall.replaceAll(String::toLowerCase);
+
         logger.info("Prepare HashSet for the rowtypes of the archive");
         HashSet<String> archiveList = new HashSet<String>();
-        archiveList.add(archive.getCore().getRowType().qualifiedName().toLowerCase());
-        if (!rowTypeList.contains(archive.getCore().getRowType().qualifiedName().toLowerCase()))
+        String coreRowType = archive.getCore().getRowType().qualifiedName().toLowerCase();
+        archiveList.add(coreRowType);
+        if (!rowTypeSmall.contains(coreRowType)) {
+            System.out.println("hereeeeeee");
             copyArchiveFile(archive.getCore());
+        }
         for (ArchiveFile archiveFile : archive.getExtensions()) {
-            String archiveRowTyp = archiveFile.getRowType().qualifiedName().toLowerCase();
-            archiveList.add(archiveRowTyp);
-            if (!rowTypeList.contains(archiveRowTyp))
+            String archiveRowType = archiveFile.getRowType().qualifiedName().toLowerCase();
+            archiveList.add(archiveRowType);
+            if (!rowTypeSmall.contains(archiveRowType))
                 copyArchiveFile(archiveFile);
         }
         logger.info("Using the HashSet in filtering the rowTypes");

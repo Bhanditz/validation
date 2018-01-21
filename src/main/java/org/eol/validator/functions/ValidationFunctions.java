@@ -26,13 +26,12 @@ public class ValidationFunctions {
 //    private static Logger logger = LogHandler.getLogger(ValidationFunctions.class.getName());
 
     /**
-     * Check whether ArchiveFile have field or not
+     * Check whether ArchiveFile have field or not and remove record as it is error
      *
      * @param archiveFile the input archive file
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
-    public static ArchiveFileState checkArchiveFileHasField_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
-        System.out.println(fieldURI);
+    public static ArchiveFileState checkArchiveFileHasField_FieldValidator_Error(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         Term fieldTerm = null;
         try {
             fieldTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
@@ -62,6 +61,40 @@ public class ValidationFunctions {
         return new ArchiveFileState(totalLines, failures);
     }
 
+    /**
+     * Check whether ArchiveFile have field or not and doesn't remove record as it is warning
+     *
+     * @param archiveFile the input archive file
+     * @return ArchiveFileState  number of violating lines and total number of lines
+     */
+    public static ArchiveFileState checkArchiveFileHasField_FieldValidator_Warning(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
+        Term fieldTerm = null;
+        try {
+            fieldTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        } catch (Exception e) {
+            System.out.println("all lines violating");
+            ArchiveFileState archiveFileState = new ArchiveFileState();
+            archiveFileState.setAllLinesViolating(true);
+            return archiveFileState;
+        }
+        int failures = 0;
+        int totalLines = records.size();
+
+        for (Record record : records) {
+            if (record.value(fieldTerm) == null || record.value(fieldTerm).length() <= 0) {
+
+//                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
+
+                //add the check
+                System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+                countFailedLines(record);
+                failures++;
+            }
+
+        }
+        return new ArchiveFileState(totalLines, failures);
+    }
+
     private static void countFailedLines(Record record){
         System.out.println("COUNTTTTTTTTTTTTTTTTTTTT");
         System.out.println(record.rowType().qualifiedName());
@@ -78,25 +111,46 @@ public class ValidationFunctions {
     }
 
     /**
-     * Check if the languages syntax using standardized ISO 639 language codes
+     * Check if the languages syntax using standardized ISO 639 language codes and remove violating record
      *
      * @param archiveFile the input archive file
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
-    public static ArchiveFileState checkLanguageIsValid_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkLanguageIsValid_FieldValidator_Error(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         Term languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
         int failures = 0;
 
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
 
             if (record.value(languageTerm) == null || record.value(languageTerm).length() <= 0 || !record.value(languageTerm).matches("^[a-z]{2,3}(-[a-z]{2,5})?$")) {
 //                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
 
+                records.remove(record);
+                failures++;
+            }
+        }
+        return new ArchiveFileState(totalLines, failures);
+    }
+
+    /**
+     * Check if the languages syntax using standardized ISO 639 language codes and doesn't remove record
+     *
+     * @param archiveFile the input archive file
+     * @return ArchiveFileState  number of violating lines and total number of lines
+     */
+    public static ArchiveFileState checkLanguageIsValid_FieldValidator_Warning(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
+        Term languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        int failures = 0;
+
+        int totalLines = records.size();
+        for (Record record : records) {
+
+            if (record.value(languageTerm) == null || record.value(languageTerm).length() <= 0 || !record.value(languageTerm).matches("^[a-z]{2,3}(-[a-z]{2,5})?$")) {
+//                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
 
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -110,7 +164,7 @@ public class ValidationFunctions {
      * @throws Exception
      */
     public static ArchiveFileState checkTermOfFieldURIisUTF8_FieldValidator(ArchiveFile archiveFile, String
-            fieldURI)
+            fieldURI, ArrayList<Record> records)
             throws Exception {
         Term term = null;
         try {
@@ -119,8 +173,8 @@ public class ValidationFunctions {
             return new ArchiveFileState(true);
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(term) == null || record.value(term).length() <= 0 ||
                     !isUTF8(record.value(term))) {
 //                logger.debug(
@@ -128,7 +182,6 @@ public class ValidationFunctions {
 //                                "Does not have a valid field : " + fieldURI + " = " + record.value(term) + " \"");
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }

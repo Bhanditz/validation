@@ -34,18 +34,19 @@ public class MediaValidationFunctions {
      * @param fieldURI
      * @return ArchiveFileState
      */
-    public static ArchiveFileState checkMediaHasValidURL_FieldValidator(ArchiveFile archiveFile, String fieldURI)
+    public static ArchiveFileState checkMediaHasValidURL_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records)
             throws
             Exception {
         Term urlTerm = null;
         try {
             urlTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
         } catch (Exception e) {
+            records.clear();
             return new ArchiveFileState(true);
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(urlTerm) == null || record.value(urlTerm).length() <= 0 ||
                     record.value(urlTerm).matches("/^(https?|ftp)://.*\\./i")) {
                 //TODO DEFRAWY regex format is weak according to sources online
@@ -53,9 +54,9 @@ public class MediaValidationFunctions {
 //                        "line : " + record.toString() + " is violating a rule \"" +
 //                                "Does not have a valid field : " + fieldURI + " = " + record.value(urlTerm) + " \"");
                 failedMedia.add(record.value(CommonTerms.identifierTerm));
+                records.remove(record);
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -73,7 +74,7 @@ public class MediaValidationFunctions {
      * @param archiveFile input archive file
      * @return the number of lines violating the rules
      */
-    public static ArchiveFileState checkMediaHasURL_RowValidator(ArchiveFile archiveFile) throws Exception {
+    public static ArchiveFileState checkMediaHasURL_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) throws Exception {
         Term typeTerm;
         Term accessTerm = null;
         try {
@@ -93,18 +94,18 @@ public class MediaValidationFunctions {
             archiveFileHasAccessURI = false;
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.stillImageURI)
                     || record.value(typeTerm).equalsIgnoreCase(TermURIs.movingImageURI)
                     || record.value(typeTerm).equalsIgnoreCase(TermURIs.soundURI)) {
                 if (!archiveFileHasAccessURI || !DwcaHandler.recordHasTerm(accessTerm, record)) {
 //                    logger.debug("Media Archive line without accessURI");
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
+                    records.remove(record);
                     failures++;
                 }
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -116,7 +117,7 @@ public class MediaValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState checkTextHasDescription_RowValidator(ArchiveFile archiveFile) throws Exception {
+    public static ArchiveFileState checkTextHasDescription_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) throws Exception {
         Term typeTerm;
         Term descriptionTerm = null;
         try {
@@ -135,16 +136,16 @@ public class MediaValidationFunctions {
             archiveFileHasDescription = false;
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.textURI)) {
                 if (!archiveFileHasDescription || !DwcaHandler.recordHasTerm(descriptionTerm, record)) {
 //                    logger.debug("Media Archive line without accessURI");
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
+                    records.remove(record);
                     failures++;
                 }
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -156,7 +157,7 @@ public class MediaValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState checkTextHasSubject_RowValidator(ArchiveFile archiveFile) throws Exception {
+    public static ArchiveFileState checkTextHasSubject_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) throws Exception {
         Term typeTerm = null, descriptionTerm = null;
         try {
             typeTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, TermURIs.termTypeURI);
@@ -174,16 +175,16 @@ public class MediaValidationFunctions {
             archiveFileHasCVTerm = false;
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.cvTermURI)) {
                 if (!archiveFileHasCVTerm || !DwcaHandler.recordHasTerm(descriptionTerm, record)) {
 //                    logger.debug("Media Archive line without " + TermURIs.descriptionURI);
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
+                    records.remove(record);
                     failures++;
                 }
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -198,9 +199,9 @@ public class MediaValidationFunctions {
      * @return return the archiveFileState against the rule
      * @throws Exception in case of failure in applying the rule
      */
-    public static ArchiveFileState checkLicenseExist_RowValidator(ArchiveFile archiveFile) throws Exception {
+    public static ArchiveFileState checkLicenseExist_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) throws Exception {
         String[] termsString = {TermURIs.usageTermsURI, TermURIs.licenseURI};
-        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsList(archiveFile, termsString, TermURIs.mediaURI);
+        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListError(archiveFile, termsString, TermURIs.mediaURI, records);
     }
 
     /**
@@ -215,9 +216,9 @@ public class MediaValidationFunctions {
      * @return
      * @throws Exception
      */
-    public static ArchiveFileState checkValidMediaType_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkValidMediaType_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         String[] validValues = {TermURIs.movingImageURI, TermURIs.soundURI, TermURIs.stillImageURI, TermURIs.textURI};
-        return DwcaHandler.checkFieldHasOneOfListOfValues(archiveFile, fieldURI, validValues, false, TermURIs.mediaURI);
+        return DwcaHandler.checkFieldHasOneOfListOfValues(archiveFile, fieldURI, validValues, false, TermURIs.mediaURI, records);
     }
 
     /**
@@ -228,9 +229,9 @@ public class MediaValidationFunctions {
      * @return
      * @throws Exception
      */
-    public static ArchiveFileState checkValidMediaSubType_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkValidMediaSubType_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         String[] validValues = {"map"};
-        return DwcaHandler.checkFieldHasOneOfListOfValues(archiveFile, fieldURI, validValues, true, TermURIs.mediaURI);
+        return DwcaHandler.checkFieldHasOneOfListOfValues(archiveFile, fieldURI, validValues, true, TermURIs.mediaURI, records);
     }
 
 
@@ -298,7 +299,7 @@ public class MediaValidationFunctions {
      * @return
      * @throws Exception
      */
-    public static ArchiveFileState checkValidSubject_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkValidSubject_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         Term fieldTerm;
         try {
             fieldTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
@@ -308,9 +309,8 @@ public class MediaValidationFunctions {
             return new ArchiveFileState(true);
         }
         int violatingLines = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
-            totalLines++;
+        int totalLines = records.size();
+        for (Record record : records) {
             String recordValue = record.value(fieldTerm);
             if (recordValue == null || recordValue.length() <= 0) {
                 violatingLines++;
@@ -354,7 +354,7 @@ public class MediaValidationFunctions {
      * @return return the archiveFileState against the rule
      * @throws Exception in case of failure in applying the rule
      */
-    public static ArchiveFileState checkValidLicense_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkValidLicense_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         Term licenseTerm = null;
         try {
             licenseTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
@@ -372,11 +372,11 @@ public class MediaValidationFunctions {
             return state;
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
-            totalLines++;
+        int totalLines = records.size();
+        for (Record record : records) {
             if (DwcaHandler.recordHasTerm(licenseTerm, record) && !isValidLicense(record.value(licenseTerm))) {
                 failedMedia.add(record.value(CommonTerms.identifierTerm));
+                records.remove(record);
                 failures++;
             }
         }

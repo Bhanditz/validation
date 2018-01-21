@@ -99,7 +99,40 @@ public class DwcaHandler {
             return true;
     }
 
-    public static ArchiveFileState checkRecordsHaveAtLeastOneOfTermsList(ArchiveFile archiveFile, String[] termsString, String rowType) {
+    public static ArchiveFileState checkRecordsHaveAtLeastOneOfTermsListError(ArchiveFile archiveFile, String[] termsString, String rowType, ArrayList<Record> records) {
+        ArrayList<Term> termsList = new ArrayList<Term>(termsString.length);
+        for (String termName : termsString) {
+            try {
+                termsList.add(DwcaHandler.getTermFromArchiveFile(archiveFile, termName));
+            } catch (Exception e) {
+//                logger.error("Error while getting " + termName + " from archive file. error message : " + e.getMessage());
+            }
+        }
+        if (termsList.isEmpty()) {
+//            logger.error("Archive file does not have any of the term list");
+            records.clear();
+            return new ArchiveFileState(true);
+        }
+        int failures = 0;
+        int totalLines = records.size();
+        for (Record record : records) {
+            boolean hasAnyTerm = false;
+            for (Term term : termsList) {
+                if (term != null && DwcaHandler.recordHasTerm(term, record)) {
+                    hasAnyTerm = true;
+                    break;
+                }
+            }
+            if (!hasAnyTerm) {
+                failures++;
+                countFailedLines(record);
+                records.remove(record);
+            }
+        }
+        return new ArchiveFileState(totalLines, failures);
+    }
+
+    public static ArchiveFileState checkRecordsHaveAtLeastOneOfTermsListWarning(ArchiveFile archiveFile, String[] termsString, String rowType, ArrayList<Record> records) {
         ArrayList<Term> termsList = new ArrayList<Term>(termsString.length);
         for (String termName : termsString) {
             try {
@@ -113,8 +146,8 @@ public class DwcaHandler {
             return new ArchiveFileState(true);
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             boolean hasAnyTerm = false;
             for (Term term : termsList) {
                 if (term != null && DwcaHandler.recordHasTerm(term, record)) {
@@ -126,7 +159,6 @@ public class DwcaHandler {
                 failures++;
                 countFailedLines(record);
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -164,7 +196,7 @@ public class DwcaHandler {
      * @return Archive file state
      */
     public static ArchiveFileState checkFieldHasOneOfListOfValues(ArchiveFile archiveFile, String fieldURI, String[] values, boolean emptyFieldAccepted,
-                                                                  String rowType)
+                                                                  String rowType, ArrayList<Record> records)
             throws Exception {
         Term fieldTerm;
         try {
@@ -179,18 +211,19 @@ public class DwcaHandler {
             } else {
 //                logger.error(e.getMessage() + " - " + e);
 //                logger.error("All lines do not have Term " + fieldURI + " so all lines is violating the rule, because empty Field is not Accepted");
+                records.clear();
                 return new ArchiveFileState(true);
             }
         }
         int violatingLines = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
-            totalLines++;
+        int totalLines = records.size();
+        for (Record record : records) {
             String recordValue = record.value(fieldTerm);
             if (recordValue == null || recordValue.length() <= 0) {
                 if (!emptyFieldAccepted) {
                     violatingLines++;
                     countFailedLines(record);
+                    records.remove(record);
 //                    logger.debug("archiveFile " + archiveFile.getRowType().qualifiedName() + " line with null type value");
                 }
                 continue;
@@ -205,6 +238,7 @@ public class DwcaHandler {
             if (!validRow) {
                 violatingLines++;
                 countFailedLines(record);
+                records.remove(record);
 //                logger.debug("archiveFile " + archiveFile.getRowType().qualifiedName() + " line with invalid value : " + recordValue);
             }
         }

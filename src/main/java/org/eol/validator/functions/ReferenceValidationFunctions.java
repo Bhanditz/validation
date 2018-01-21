@@ -4,6 +4,7 @@ import org.eol.handlers.DwcaHandler;
 import org.eol.validator.ArchiveFileState;
 import org.eol.validator.TermURIs;
 import org.gbif.dwca.io.ArchiveFile;
+import org.gbif.dwca.record.Record;
 
 import java.util.ArrayList;
 
@@ -24,9 +25,9 @@ public class ReferenceValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState checkReferencesHasTitles_RowValidator(ArchiveFile archiveFile) {
+    public static ArchiveFileState checkReferencesHasTitles_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) {
         String[] termsString = {TermURIs.referenceURI, TermURIs.primaryTitleURI, TermURIs.titleURI};
-        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsList(archiveFile, termsString, TermURIs.referenceURI);
+        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListError(archiveFile, termsString, TermURIs.referenceURI, records);
     }
 
 }

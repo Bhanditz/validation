@@ -37,7 +37,7 @@ public class TaxonValidationFunctions {
      * @param fieldURI
      * @return ArchiveFileState
      */
-    public static ArchiveFileState checkTaxonHasValidRank_FieldValidator(ArchiveFile archiveFile, String fieldURI)
+    public static ArchiveFileState checkTaxonHasValidRank_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records)
             throws Exception {
         String[] ranks =
                 {"species", "superkingdom", "kingdom", "regnum", "subkingdom", "infrakingdom", "subregnum", "division",
@@ -55,8 +55,8 @@ public class TaxonValidationFunctions {
             return new ArchiveFileState(true);
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(rankTerm) == null || record.value(rankTerm).length() <= 0 ||
                     !Arrays.asList(ranks).contains(record.value(rankTerm).toLowerCase())) {
 //                logger.debug(
@@ -65,7 +65,6 @@ public class TaxonValidationFunctions {
                 failedTaxa.add(record.value(DwcTerm.taxonID));
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -108,9 +107,9 @@ public class TaxonValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState checkTaxonHasValidIdentifier_RowValidator(ArchiveFile archiveFile) {
+    public static ArchiveFileState checkTaxonHasValidIdentifier_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) {
         String[] termsString = {TermURIs.taxonID_URI, TermURIs.identifierURI};
-        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsList(archiveFile, termsString, TermURIs.taxonID_URI); //other URI
+        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListError(archiveFile, termsString, TermURIs.taxonID_URI, records); //other URI
     }
 
     /**
@@ -126,10 +125,10 @@ public class TaxonValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState validatePresenceOfAnyName_RowValidator(ArchiveFile archiveFile) {
+    public static ArchiveFileState validatePresenceOfAnyName_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) {
         String[] termsString = {TermURIs.scientificNameURI, TermURIs.kingdomURI, TermURIs.classURI, TermURIs.orderURI,
                 TermURIs.familyURI, TermURIs.genusURI};
-        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsList(archiveFile, termsString, TermURIs.taxonID_URI);
+        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListWarning(archiveFile, termsString, TermURIs.taxonID_URI, records);
     }
 
 

@@ -28,16 +28,17 @@ public class AgentValidationFunctions {
      * @param fieldURI
      * @return ArchiveFileState
      */
-    public static ArchiveFileState checkAgentHasValidURL_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkAgentHasValidURL_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         Term urlTerm = null;
         try {
             urlTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
         } catch (Exception e) {
+            records.clear();
             return new ArchiveFileState(true);
         }
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(urlTerm) == null || record.value(urlTerm).length() <= 0 ||
                     record.value(urlTerm).matches("/^(https?|ftp)://.*\\./i")) {
                 //TODO DEFRAWY regex format is weak according to sources online
@@ -45,9 +46,9 @@ public class AgentValidationFunctions {
 //                        "line : " + record.toString() + " is violating a rule \"" +
 //                                "Does not have a valid field : " + fieldURI + " = " + record.value(urlTerm) + " \"");
                 failedAgents.add(record.value(CommonTerms.agentIDTerm));
+                records.remove(record);
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -61,7 +62,7 @@ public class AgentValidationFunctions {
      * @param fieldURI
      * @return ArchiveFileState
      */
-    public static ArchiveFileState checkAgentHasValidRole_FieldValidator(ArchiveFile archiveFile, String fieldURI) throws Exception {
+    public static ArchiveFileState checkAgentHasValidRole_FieldValidator(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
         String[] roles = {"animator", "author", "compiler", "composer", "creator", "director", "editor", "illustrator",
                 "photographer", "project", "provider", "publisher", "recorder", "source"};
         Term roleTerm = null;
@@ -72,8 +73,8 @@ public class AgentValidationFunctions {
         }
 
         int failures = 0;
-        int totalLines = 0;
-        for (Record record : archiveFile) {
+        int totalLines = records.size();
+        for (Record record : records) {
             if (record.value(roleTerm) == null || record.value(roleTerm).length() <= 0 ||
                     !Arrays.asList(roles).contains(record.value(roleTerm))) {
 //                logger.debug(
@@ -82,7 +83,6 @@ public class AgentValidationFunctions {
                 failedAgents.add(record.value(CommonTerms.agentIDTerm));
                 failures++;
             }
-            totalLines++;
         }
         return new ArchiveFileState(totalLines, failures);
     }
@@ -97,8 +97,8 @@ public class AgentValidationFunctions {
      * @param archiveFile
      * @return
      */
-    public static ArchiveFileState checkAgentsHaveNames_RowValidator(ArchiveFile archiveFile) {
+    public static ArchiveFileState checkAgentsHaveNames_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) {
         String[] termsString = {TermURIs.termNameURI, TermURIs.termFirstNameURI, TermURIs.termFamilyNameURI};
-        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsList(archiveFile, termsString, TermURIs.agentURI);
+        return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListError(archiveFile, termsString, TermURIs.agentURI, records);
     }
 }

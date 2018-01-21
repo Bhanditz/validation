@@ -212,10 +212,10 @@ public class OwnDwcaWriter {
             log.warn("Adding an {} extension record to a core without an Id! Skip this record", rowType);
 
         } else {
-            String[] row = new String[columns.size()+1];
-            row[0] = coreId;
+            String[] row = new String[columns.size()];
+//            row[0] = coreId;
             for (Map.Entry<Term, String> conceptTermStringEntry : rowMap.entrySet()) {
-                int column = 1+ columns.indexOf(conceptTermStringEntry.getKey());
+                int column = columns.indexOf(conceptTermStringEntry.getKey());
                 row[column] = conceptTermStringEntry.getValue();
             }
             write(row, fieldsTerminatedBy, linesTerminatedBy);
