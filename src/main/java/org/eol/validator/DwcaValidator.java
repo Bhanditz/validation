@@ -18,6 +18,8 @@ import sun.management.Agent;
 import java.io.*;
 import java.util.*;
 
+import static org.eol.parser.utils.Constants.writeHeader;
+
 public class DwcaValidator {
 
     //    private Logger logger;
@@ -111,7 +113,6 @@ public class DwcaValidator {
 
     private List<String> filterNotExistingRowTypes(Archive archive, List<String> rowTypeList) {
         ArrayList<String> rowTypeSmall = new ArrayList<String>(rowTypeList);
-//        Collections.copy(rowTypeSmall, rowTypeList);
         rowTypeSmall.replaceAll(String::toLowerCase);
 
         logger.info("Prepare HashSet for the rowtypes of the archive");
@@ -172,6 +173,8 @@ public class DwcaValidator {
                 return true;
             }
             for (ArchiveFile archiveFile : archiveFiles) {
+                if (archiveFile.getIgnoreHeaderLines() == 1)
+                    Constants.writeHeader(archiveFile);
                 int totalLines = 0, chunks = 0;
                 ArrayList<Record> recordsToValid = new ArrayList<Record>();
                 for (Record record : archiveFile) {
@@ -243,8 +246,11 @@ public class DwcaValidator {
     }
 
     private void copyArchiveFile(ArchiveFile archiveFile) {
-        System.out.println("copy " + archiveFile.getTitle());
+        System.out.println("copy all file" + archiveFile.getTitle());
         int totalLines = 0;
+        if (archiveFile.getIgnoreHeaderLines() == 1){
+            Constants.writeHeader(archiveFile);
+        }
         ArrayList<Record> records = new ArrayList<Record>();
         for (Record record : archiveFile) {
             if (totalLines % chunkSize == 0 && totalLines != 0) {
@@ -261,6 +267,8 @@ public class DwcaValidator {
             }
         }
     }
+
+
 
     /**
      * Apply the Row Validation Rules on the darwin core archive and put the results in the
