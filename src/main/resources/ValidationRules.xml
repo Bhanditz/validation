@@ -2,16 +2,16 @@
 
 <ValidationRules>
 
-    <!--<RulesList RowType="http://eol.org/schema/media/Document">-->
+    <RulesList RowType="http://eol.org/schema/media/Document">
 
-        <!--<FieldValidationRule>-->
-            <!--<FieldUri>http://purl.org/dc/terms/identifier</FieldUri>-->
-            <!--<ValidationFunction>-->
-                <!--org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator-->
-            <!--</ValidationFunction>-->
-            <!--<FailureType>error</FailureType>-->
-            <!--<FailureMessage>Media must have identifiers</FailureMessage>-->
-        <!--</FieldValidationRule>-->
+        <FieldValidationRule>
+            <FieldUri>http://purl.org/dc/terms/identifier</FieldUri>
+            <ValidationFunction>
+                org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator
+            </ValidationFunction>
+            <FailureType>error</FailureType>
+            <FailureMessage>Media must have identifiers</FailureMessage>
+        </FieldValidationRule>
 
         <!--&lt;!&ndash;<FieldValidationRule>&ndash;&gt;-->
             <!--&lt;!&ndash;<FieldUri>http://purl.org/dc/terms/identifier</FieldUri>&ndash;&gt;-->
@@ -168,7 +168,7 @@
         <!--&lt;!&ndash;<FailureMessage>Text must have subjects</FailureMessage>&ndash;&gt;-->
         <!--&lt;!&ndash;</RowValidationRule>&ndash;&gt;-->
 
-    <!--</RulesList>-->
+    </RulesList>
 
     <!--&lt;!&ndash;<RulesList RowType="http://rs.tdwg.org/dwc/terms/Taxon">&ndash;&gt;-->
 

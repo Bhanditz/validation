@@ -125,8 +125,13 @@ public class DwcaValidator {
         logger.info("Prepare HashSet for the rowtypes of the archive");
         HashSet<String> archiveList = new HashSet<String>();
         archiveList.add(archive.getCore().getRowType().qualifiedName().toLowerCase());
+        if (!rowTypeList.contains(archive.getCore().getRowType().qualifiedName().toLowerCase()))
+            copyArchiveFile(archive.getCore());
         for (ArchiveFile archiveFile : archive.getExtensions()) {
-            archiveList.add(archiveFile.getRowType().qualifiedName().toLowerCase());
+            String archiveRowTyp = archiveFile.getRowType().qualifiedName().toLowerCase();
+            archiveList.add(archiveRowTyp);
+            if (!rowTypeList.contains(archiveRowTyp))
+                copyArchiveFile(archiveFile);
         }
         logger.info("Using the HashSet in filtering the rowTypes");
         List<String> filteredList = new ArrayList<String>();
@@ -202,25 +207,25 @@ public class DwcaValidator {
 
         }
 
-        if (dwcArchive.getExtension(CommonTerms.referenceTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.referenceTerm))) {
-            System.out.println("copy references");
-            copyArchiveFile(dwcArchive.getExtension(CommonTerms.referenceTerm));
-        }
-
-        if (dwcArchive.getExtension(CommonTerms.agentTerm) != null /*&& !extensions.contains(dwcArchive.getExtension(CommonTerms.agentTerm))*/) {
-            System.out.println("copy agents");
-            copyArchiveFile(dwcArchive.getExtension(CommonTerms.agentTerm));
-        }
-
-        if (dwcArchive.getExtension(CommonTerms.associationTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.associationTerm))) {
-            System.out.println("copy associations");
-            copyArchiveFile(dwcArchive.getExtension(CommonTerms.associationTerm));
-        }
-
-        if (dwcArchive.getExtension(DwcTerm.MeasurementOrFact) != null && !extensions.contains(dwcArchive.getExtension(DwcTerm.MeasurementOrFact))) {
-            System.out.println("copy measurements");
-            copyArchiveFile(dwcArchive.getExtension(DwcTerm.MeasurementOrFact));
-        }
+//        if (dwcArchive.getExtension(CommonTerms.referenceTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.referenceTerm))) {
+//            System.out.println("copy references");
+//            copyArchiveFile(dwcArchive.getExtension(CommonTerms.referenceTerm));
+//        }
+//
+//        if (dwcArchive.getExtension(CommonTerms.agentTerm) != null /*&& !extensions.contains(dwcArchive.getExtension(CommonTerms.agentTerm))*/) {
+//            System.out.println("copy agents");
+//            copyArchiveFile(dwcArchive.getExtension(CommonTerms.agentTerm));
+//        }
+//
+//        if (dwcArchive.getExtension(CommonTerms.associationTerm) != null && !extensions.contains(dwcArchive.getExtension(CommonTerms.associationTerm))) {
+//            System.out.println("copy associations");
+//            copyArchiveFile(dwcArchive.getExtension(CommonTerms.associationTerm));
+//        }
+//
+//        if (dwcArchive.getExtension(DwcTerm.MeasurementOrFact) != null && !extensions.contains(dwcArchive.getExtension(DwcTerm.MeasurementOrFact))) {
+//            System.out.println("copy measurements");
+//            copyArchiveFile(dwcArchive.getExtension(DwcTerm.MeasurementOrFact));
+//        }
     }
 
     private void copyArchiveFile (ArchiveFile archiveFile){
