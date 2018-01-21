@@ -1,7 +1,6 @@
 package org.eol.validator;
 
-import org.apache.commons.io.FilenameUtils;
-import org.eol.handlers.XMLHandler;
+
 import org.gbif.dwca.io.Archive;
 import org.gbif.dwca.io.ArchiveFactory;
 
