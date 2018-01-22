@@ -9,6 +9,7 @@ import org.gbif.dwca.io.ArchiveFile;
 import org.gbif.dwca.record.Record;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *         <p/>
@@ -46,7 +47,9 @@ public class MediaValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(urlTerm) == null || record.value(urlTerm).length() <= 0 ||
                     record.value(urlTerm).matches("/^(https?|ftp)://.*\\./i")) {
                 //TODO DEFRAWY regex format is weak according to sources online
@@ -54,7 +57,7 @@ public class MediaValidationFunctions {
 //                        "line : " + record.toString() + " is violating a rule \"" +
 //                                "Does not have a valid field : " + fieldURI + " = " + record.value(urlTerm) + " \"");
                 failedMedia.add(record.value(CommonTerms.identifierTerm));
-                records.remove(record);
+                i.remove();
                 failures++;
             }
         }
@@ -95,14 +98,16 @@ public class MediaValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.stillImageURI)
                     || record.value(typeTerm).equalsIgnoreCase(TermURIs.movingImageURI)
                     || record.value(typeTerm).equalsIgnoreCase(TermURIs.soundURI)) {
                 if (!archiveFileHasAccessURI || !DwcaHandler.recordHasTerm(accessTerm, record)) {
 //                    logger.debug("Media Archive line without accessURI");
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
-                    records.remove(record);
+                    i.remove();
                     failures++;
                 }
             }
@@ -137,12 +142,14 @@ public class MediaValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.textURI)) {
                 if (!archiveFileHasDescription || !DwcaHandler.recordHasTerm(descriptionTerm, record)) {
 //                    logger.debug("Media Archive line without accessURI");
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
-                    records.remove(record);
+                    i.remove();
                     failures++;
                 }
             }
@@ -176,12 +183,14 @@ public class MediaValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(typeTerm).equalsIgnoreCase(TermURIs.cvTermURI)) {
                 if (!archiveFileHasCVTerm || !DwcaHandler.recordHasTerm(descriptionTerm, record)) {
 //                    logger.debug("Media Archive line without " + TermURIs.descriptionURI);
                     failedMedia.add(record.value(CommonTerms.identifierTerm));
-                    records.remove(record);
+                    i.remove();
                     failures++;
                 }
             }
@@ -373,10 +382,12 @@ public class MediaValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (DwcaHandler.recordHasTerm(licenseTerm, record) && !isValidLicense(record.value(licenseTerm))) {
                 failedMedia.add(record.value(CommonTerms.identifierTerm));
-                records.remove(record);
+                i.remove();
                 failures++;
             }
         }

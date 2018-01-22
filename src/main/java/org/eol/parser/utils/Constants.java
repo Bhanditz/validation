@@ -17,7 +17,7 @@ public class Constants {
     public static final int ChunkSize = 1000;
 
     public static boolean copyContentOfArchiveFileToDisk(ArrayList<Record> records, ArchiveFile archiveFile) {
-        System.out.println("debug " + archiveFile.getTitle());
+        System.out.println("debug " + archiveFile.getTitle() + " size " +records.size());
         Archive archive = archiveFile.getArchive();
         File backup_folder = new File(archive.getLocation().getPath() + "_valid");
         Term rowType = archiveFile.getRowType();

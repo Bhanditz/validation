@@ -126,7 +126,7 @@ public class TaxonValidationFunctions {
      * @return
      */
     public static ArchiveFileState validatePresenceOfAnyName_RowValidator(ArchiveFile archiveFile, ArrayList<Record> records) {
-        String[] termsString = {TermURIs.scientificNameURI, TermURIs.kingdomURI, TermURIs.classURI, TermURIs.orderURI,
+        String[] termsString = {TermURIs.kingdomURI, TermURIs.classURI, TermURIs.orderURI,
                 TermURIs.familyURI, TermURIs.genusURI};
         return DwcaHandler.checkRecordsHaveAtLeastOneOfTermsListWarning(archiveFile, termsString, TermURIs.taxonID_URI, records);
     }

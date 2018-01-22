@@ -16,6 +16,7 @@ import org.gbif.dwca.record.Record;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -115,7 +116,9 @@ public class DwcaHandler {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             boolean hasAnyTerm = false;
             for (Term term : termsList) {
                 if (term != null && DwcaHandler.recordHasTerm(term, record)) {
@@ -126,7 +129,7 @@ public class DwcaHandler {
             if (!hasAnyTerm) {
                 failures++;
                 countFailedLines(record);
-                records.remove(record);
+                i.remove();
             }
         }
         return new ArchiveFileState(totalLines, failures);
@@ -217,13 +220,15 @@ public class DwcaHandler {
         }
         int violatingLines = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             String recordValue = record.value(fieldTerm);
             if (recordValue == null || recordValue.length() <= 0) {
                 if (!emptyFieldAccepted) {
                     violatingLines++;
                     countFailedLines(record);
-                    records.remove(record);
+                    i.remove();
 //                    logger.debug("archiveFile " + archiveFile.getRowType().qualifiedName() + " line with null type value");
                 }
                 continue;
@@ -238,7 +243,7 @@ public class DwcaHandler {
             if (!validRow) {
                 violatingLines++;
                 countFailedLines(record);
-                records.remove(record);
+                i.remove();
 //                logger.debug("archiveFile " + archiveFile.getRowType().qualifiedName() + " line with invalid value : " + recordValue);
             }
         }

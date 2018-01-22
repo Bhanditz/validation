@@ -10,6 +10,7 @@ import org.gbif.dwca.record.Record;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -38,7 +39,9 @@ public class AgentValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(urlTerm) == null || record.value(urlTerm).length() <= 0 ||
                     record.value(urlTerm).matches("/^(https?|ftp)://.*\\./i")) {
                 //TODO DEFRAWY regex format is weak according to sources online
@@ -46,7 +49,7 @@ public class AgentValidationFunctions {
 //                        "line : " + record.toString() + " is violating a rule \"" +
 //                                "Does not have a valid field : " + fieldURI + " = " + record.value(urlTerm) + " \"");
                 failedAgents.add(record.value(CommonTerms.agentIDTerm));
-                records.remove(record);
+                i.remove();
                 failures++;
             }
         }

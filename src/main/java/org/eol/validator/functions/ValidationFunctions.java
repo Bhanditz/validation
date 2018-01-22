@@ -14,10 +14,7 @@ import org.gbif.dwca.io.DwcaWriter;
 import org.gbif.dwca.record.Record;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 //import org.eol.handlers.LogHandler;
 
@@ -44,8 +41,9 @@ public class ValidationFunctions {
         }
         int failures = 0;
         int totalLines = records.size();
-
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
             if (record.value(fieldTerm) == null || record.value(fieldTerm).length() <= 0) {
 
 //                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
@@ -53,11 +51,11 @@ public class ValidationFunctions {
                 //add the check
                 System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
                 countFailedLines(record);
-                records.remove(record);
+                i.remove();
                 failures++;
             }
-
         }
+
         return new ArchiveFileState(totalLines, failures);
     }
 
@@ -121,12 +119,14 @@ public class ValidationFunctions {
         int failures = 0;
 
         int totalLines = records.size();
-        for (Record record : records) {
+        Iterator<Record> i = records.iterator();
+        while (i.hasNext()) {
+            Record record = i.next();
 
             if (record.value(languageTerm) == null || record.value(languageTerm).length() <= 0 || !record.value(languageTerm).matches("^[a-z]{2,3}(-[a-z]{2,5})?$")) {
 //                logger.debug("line violating a rule \"Does not have the field : " + fieldURI + " \"");
 
-                records.remove(record);
+                i.remove();
                 failures++;
             }
         }
