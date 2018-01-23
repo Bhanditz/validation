@@ -212,23 +212,23 @@
 
     <RulesList RowType="http://eol.org/schema/reference/Reference">
 
-        <FieldValidationRule>
-            <FieldUri>http://purl.org/dc/terms/identifier</FieldUri>
-            <ValidationFunction>
-                org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator_Error
-            </ValidationFunction>
-            <FailureType>error</FailureType>
-            <FailureMessage>References must have identifiers</FailureMessage>
-        </FieldValidationRule>
+        <!--<FieldValidationRule>-->
+            <!--<FieldUri>http://purl.org/dc/terms/identifier</FieldUri>-->
+            <!--<ValidationFunction>-->
+                <!--org.eol.validator.functions.ValidationFunctions.checkArchiveFileHasField_FieldValidator_Error-->
+            <!--</ValidationFunction>-->
+            <!--<FailureType>error</FailureType>-->
+            <!--<FailureMessage>References must have identifiers</FailureMessage>-->
+        <!--</FieldValidationRule>-->
 
-        <RowValidationRule>
-            <ValidationFunction>
-                org.eol.validator.functions.ReferenceValidationFunctions.checkReferencesHasTitles_RowValidator
-            </ValidationFunction>
-            <FailureType>error</FailureType>
-            <FailureMessage>References must minimally contain a full_reference or title
-            </FailureMessage>
-        </RowValidationRule>
+        <!--<RowValidationRule>-->
+            <!--<ValidationFunction>-->
+                <!--org.eol.validator.functions.ReferenceValidationFunctions.checkReferencesHasTitles_RowValidator-->
+            <!--</ValidationFunction>-->
+            <!--<FailureType>error</FailureType>-->
+            <!--<FailureMessage>References must minimally contain a full_reference or title-->
+            <!--</FailureMessage>-->
+        <!--</RowValidationRule>-->
     </RulesList>
 
     <RulesList RowType="http://eol.org/schema/agent/Agent">
