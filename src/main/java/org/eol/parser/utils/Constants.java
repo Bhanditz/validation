@@ -35,7 +35,12 @@ public class Constants {
             }
             for (Record record : records) {
                 Map<Term, String> termStringMap = dwcaWriter.recordToMap(record, archiveFile);
-                dwcaWriter.newRecord(record.id());
+//                System.out.println(record.id());
+                if(record.id()!= null)
+                    dwcaWriter.newRecord(record.id());
+                else
+                    dwcaWriter.newRecord("");
+
                 dwcaWriter.addExtensionRecord(termsSorted, rowType, termStringMap, archiveFile.getTitle(),
                         archiveFile.getFieldsTerminatedBy(), archiveFile.getLinesTerminatedBy(), archiveFile.getEncoding());
             }

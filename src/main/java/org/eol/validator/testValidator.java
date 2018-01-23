@@ -20,7 +20,7 @@ public class testValidator {
 //        }
         try {
             DwcaValidator validator = new DwcaValidator("configs.properties");
-            String path = "/home/ba/eol_resources/birds-of-dc-brief-summary.zip";
+            String path = "/home/ba/eol_resources/8.tar.gz";
             File myArchiveFile = new File(path);
             File extractToFolder = new File(FilenameUtils.removeExtension(path) + ".out");
             Archive dwcArchive = ArchiveFactory.openArchive(myArchiveFile, extractToFolder);

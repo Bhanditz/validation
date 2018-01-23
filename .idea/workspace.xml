@@ -2,40 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f957741d-5efd-4ac4-98ac-258bb59df562" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_owasp_java_html_sanitizer_owasp_java_html_sanitizer_20160924_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_6_14.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_6_14.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_dwc_api_1_17.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_api_0_46.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_8_9.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_threeten_threetenbp_1_3_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_core_1_8_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_5.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_8_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_10.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math3_3_6_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math3_3_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_4.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_6_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tika_tika_core_1_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tika_tika_core_1_13.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_21.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_25_incubating.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_dwc_api_1_12.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_dwca_io_1_23.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_api_0_18.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_common_0_17.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_common_0_36.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_parsers_0_11.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_gbif_parsers_0_28.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_motherpom_35.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_name_parser_2_6.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_name_parser_2_18.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_registry_registry_metadata_2_26.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_gbif_registry_registry_metadata_2_59.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java" afterPath="$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" afterPath="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/eol/validator/testValidator.class" afterPath="$PROJECT_DIR$/target/classes/org/eol/validator/testValidator.class" />
-      <change beforePath="$PROJECT_DIR$/validation.iml" afterPath="$PROJECT_DIR$/validation.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,21 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ValidationRules.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ValidationRules.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="230" column="32" lean-forward="true" selection-start-line="214" selection-start-column="12" selection-end-line="230" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaXMLSaxHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwc/meta/MetaXMLSaxHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="134" column="19" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+            <state relative-caret-position="3870">
+              <caret line="215" column="37" lean-forward="false" selection-start-line="215" selection-start-column="37" selection-end-line="215" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -77,47 +36,29 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="22" column="79" lean-forward="false" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
+              <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DwcMetaFiles.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwc/meta/DwcMetaFiles.java">
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="182">
+              <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+              <folding>
+                <element signature="e#961#967#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InternalDwcFileFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwc/InternalDwcFileFactory.java">
+      <file leaf-file-name="OwnDwcaWriter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="208" column="0" lean-forward="false" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DwcFiles.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwc/DwcFiles.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="89" column="69" lean-forward="false" selection-start-line="89" selection-start-column="69" selection-end-line="89" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArchiveFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwca/io/ArchiveFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="109" column="29" lean-forward="false" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="29" />
+            <state relative-caret-position="814">
+              <caret line="253" column="16" lean-forward="false" selection-start-line="253" selection-start-column="16" selection-end-line="253" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -188,16 +129,16 @@
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/DwcaValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/TaxonValidationFunctions.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/handlers/DwcaHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/ValidationFunctions.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/AgentValidationFunctions.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/functions/MediaValidationFunctions.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/gbif/dwca/io/ArchiveFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/gbif/dwc/meta/MetaXMLSaxHandler.java" />
         <option value="$PROJECT_DIR$/src/main/resources/ValidationRules.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java" />
       </list>
     </option>
   </component>
@@ -278,6 +219,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="eol" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="validation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="validation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="eol" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="validation" type="b2602c69:ProjectViewProjectNode" />
@@ -532,7 +483,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33002207" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -644,13 +595,13 @@
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java</url>
-          <line>29</line>
+          <url>file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java</url>
+          <line>19</line>
           <properties />
-          <option name="timeStamp" value="122" />
+          <option name="timeStamp" value="124" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="124" />
+      <option name="time" value="125" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -863,25 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="203" column="0" lean-forward="false" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-145">
-          <caret line="19" column="65" lean-forward="false" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#961#967#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/rules/ValidationRule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -1023,14 +955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="22" column="79" lean-forward="false" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/gbif/dwc/meta/MetaXMLSaxHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -1041,9 +965,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationRules.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="230" column="32" lean-forward="true" selection-start-line="214" selection-start-column="12" selection-end-line="230" selection-end-column="32" />
+        <state relative-caret-position="3870">
+          <caret line="215" column="37" lean-forward="false" selection-start-line="215" selection-start-column="37" selection-end-line="215" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/testValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/validator/OwnDwcaWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="253" column="16" lean-forward="false" selection-start-line="253" selection-start-column="16" selection-end-line="253" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eol/parser/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+          <folding>
+            <element signature="e#961#967#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
