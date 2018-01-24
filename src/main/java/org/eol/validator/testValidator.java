@@ -4,6 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.eol.handlers.XMLHandler;
 import org.gbif.dwca.io.Archive;
 import org.gbif.dwca.io.ArchiveFactory;
+import org.gbif.dwca.record.StarRecord;
 
 import java.io.File;
 
@@ -25,9 +26,13 @@ public class testValidator {
             File extractToFolder = new File(FilenameUtils.removeExtension(path) + ".out");
             Archive dwcArchive = ArchiveFactory.openArchive(myArchiveFile, extractToFolder);
 
+            for (StarRecord rec : dwcArchive) {
+                System.out.println("henaaaa");
+
+            }
 //            Archive dwcArchive = ArchiveFactory.openArchive(new File(path));
 
-            validator.validateArchive(dwcArchive.getLocation().getPath(), dwcArchive);
+//            validator.validateArchive(dwcArchive.getLocation().getPath(), dwcArchive);
         } catch (Exception e) {
             e.printStackTrace();
         }

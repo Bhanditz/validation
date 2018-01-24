@@ -166,13 +166,15 @@ public class Archive implements Iterable<StarRecord> {
       }
 
       for (ArchiveFile af : archive.getExtensions()) {
-        rowTypes.add(af.getRowType());
-        RecordIterator iter =
-          extensions.isEmpty() ? RecordIterator.build(af, replaceNulls, replaceEntities) : buildSortedIterator(af,
-            replaceNulls, replaceNulls);
-        closables.add(iter);
-        extensionIters.put(af.getRowType(), Iterators.peekingIterator(iter));
-        extensionRecordsSkipped.put(af.getRowType(), 0);
+        if(af.getId() != null) {
+          rowTypes.add(af.getRowType());
+          RecordIterator iter =
+                  extensions.isEmpty() ? RecordIterator.build(af, replaceNulls, replaceEntities) : buildSortedIterator(af,
+                          replaceNulls, replaceNulls);
+          closables.add(iter);
+          extensionIters.put(af.getRowType(), Iterators.peekingIterator(iter));
+          extensionRecordsSkipped.put(af.getRowType(), 0);
+        }
       }
 
       rec = new StarRecordImpl(rowTypes);
@@ -431,9 +433,10 @@ public class Archive implements Iterable<StarRecord> {
     // extensions
     for (ArchiveFile ext : extensions) {
       try {
-        futil.sort(ext.getLocationFile(), ArchiveFile.getLocationFileSorted(ext.getLocationFile()), ext.getEncoding(),
-          ext.getId().getIndex(), ext.getFieldsTerminatedBy(), ext.getFieldsEnclosedBy(), ext.getLinesTerminatedBy(),
-          ext.getIgnoreHeaderLines());
+        if(ext.getId() !=null)
+          futil.sort(ext.getLocationFile(), ArchiveFile.getLocationFileSorted(ext.getLocationFile()), ext.getEncoding(),
+            ext.getId().getIndex(), ext.getFieldsTerminatedBy(), ext.getFieldsEnclosedBy(), ext.getLinesTerminatedBy(),
+            ext.getIgnoreHeaderLines());
       } catch (IOException e) {
         LOG.error("Error sorting extension file " + ext.getLocationFile() + " : " + e.getMessage());
         throw e;
