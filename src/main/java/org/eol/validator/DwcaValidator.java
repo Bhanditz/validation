@@ -191,16 +191,16 @@ public class DwcaValidator {
                     totalLines++;
                     recordsToValid.add(record);
                 }
-                if (!recordsToValid.isEmpty()) {
-                    chunks++;
-                    logger.info("start applying " + rowValidationRules.size() + " row Validations on archive file " + rowType + "on " + chunks + "chunk");
-                    rowSuccess &= applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
-                    logger.info("start applying " + rowValidationRules.size() + " field Validations on archive file " + rowType + "on " + chunks + "chunk");
-                    fieldSuccess &= applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
-                    if (Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)) {
-                        recordsToValid.clear();
-                    }
+//                if (!recordsToValid.isEmpty()) {
+                chunks++;
+                logger.info("start applying " + rowValidationRules.size() + " row Validations on archive file " + rowType + "on " + chunks + "chunk");
+                rowSuccess &= applyRowValidationRules(archiveFile, validationResult, rowType, rowValidationRules, recordsToValid);
+                logger.info("start applying " + rowValidationRules.size() + " field Validations on archive file " + rowType + "on " + chunks + "chunk");
+                fieldSuccess &= applyFieldValidationRules(archiveFile, validationResult, rowType, fieldValidationRules, recordsToValid);
+                if (Constants.copyContentOfArchiveFileToDisk(recordsToValid, archiveFile)) {
+                    recordsToValid.clear();
                 }
+//                }
 
             }
 
@@ -248,7 +248,7 @@ public class DwcaValidator {
     private void copyArchiveFile(ArchiveFile archiveFile) {
         System.out.println("copy all file" + archiveFile.getTitle());
         int totalLines = 0;
-        if (archiveFile.getIgnoreHeaderLines() == 1){
+        if (archiveFile.getIgnoreHeaderLines() == 1) {
             Constants.writeHeader(archiveFile);
         }
         ArrayList<Record> records = new ArrayList<Record>();
@@ -267,7 +267,6 @@ public class DwcaValidator {
             }
         }
     }
-
 
 
     /**

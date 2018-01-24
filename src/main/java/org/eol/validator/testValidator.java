@@ -21,18 +21,18 @@ public class testValidator {
 //        }
         try {
             DwcaValidator validator = new DwcaValidator("configs.properties");
-            String path = "/home/ba/eol_resources/8.tar.gz";
+            String path = "/home/ba/eol_resources/dwca12858.tar.gz";
             File myArchiveFile = new File(path);
             File extractToFolder = new File(FilenameUtils.removeExtension(path) + ".out");
             Archive dwcArchive = ArchiveFactory.openArchive(myArchiveFile, extractToFolder);
 
-            for (StarRecord rec : dwcArchive) {
-                System.out.println("henaaaa");
-
-            }
+//            for (StarRecord rec : dwcArchive) {
+//                System.out.println("henaaaa");
+//
+//            }
 //            Archive dwcArchive = ArchiveFactory.openArchive(new File(path));
 
-//            validator.validateArchive(dwcArchive.getLocation().getPath(), dwcArchive);
+            validator.validateArchive(dwcArchive.getLocation().getPath(), dwcArchive);
         } catch (Exception e) {
             e.printStackTrace();
         }
