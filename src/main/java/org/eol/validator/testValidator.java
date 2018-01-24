@@ -21,7 +21,7 @@ public class testValidator {
 //        }
         try {
             DwcaValidator validator = new DwcaValidator("configs.properties");
-            String path = "/home/ba/eol_resources/dwca12858.tar.gz";
+            String path = "/home/ba/eol_resources/4.tar.gz";
             File myArchiveFile = new File(path);
             File extractToFolder = new File(FilenameUtils.removeExtension(path) + ".out");
             Archive dwcArchive = ArchiveFactory.openArchive(myArchiveFile, extractToFolder);

@@ -12,6 +12,7 @@ import org.gbif.dwca.io.ArchiveField;
 import org.gbif.dwca.io.ArchiveFile;
 import org.gbif.dwca.io.DwcaWriter;
 import org.gbif.dwca.record.Record;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
@@ -20,7 +21,7 @@ import java.util.*;
 
 public class ValidationFunctions {
     private static int chunkSize = Constants.ChunkSize;
-//    private static Logger logger = LogHandler.getLogger(ValidationFunctions.class.getName());
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(ValidationFunctions.class.getName());
 
     /**
      * Check whether ArchiveFile have field or not and remove record as it is error
@@ -115,7 +116,12 @@ public class ValidationFunctions {
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
     public static ArchiveFileState checkLanguageIsValid_FieldValidator_Error(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
-        Term languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        Term languageTerm = null;
+        try{
+            languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        }catch (Exception e) {
+            logger.warn("Language should use standardized ISO 639 language codes");
+        }
         int failures = 0;
 
         int totalLines = records.size();
@@ -140,7 +146,12 @@ public class ValidationFunctions {
      * @return ArchiveFileState  number of violating lines and total number of lines
      */
     public static ArchiveFileState checkLanguageIsValid_FieldValidator_Warning(ArchiveFile archiveFile, String fieldURI, ArrayList<Record> records) throws Exception {
-        Term languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        Term languageTerm = null;
+        try{
+            languageTerm = DwcaHandler.getTermFromArchiveFile(archiveFile, fieldURI);
+        }catch (Exception e) {
+            logger.warn("Language should use standardized ISO 639 language codes");
+        }
         int failures = 0;
 
         int totalLines = records.size();
